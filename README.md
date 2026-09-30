@@ -35,18 +35,18 @@ a calm **falling-leaf screensaver** that runs in the browser, plus a
 draws on a `<canvas>`. Each leaf gets a random depth that sets its size,
 speed and opacity. Leaves sway and spin as they fall, and flatten as they
 turn edge-on to fake a 3D flip. A slow, gusting wind pushes them all
-sideways. Sprites load in the background, so the animation starts almost
-immediately. The page respects `prefers-reduced-motion`.
+sideways. Moving the mouse (or dragging a finger) stirs up a breeze that
+pushes nearby leaves along and sets them spinning before they settle back
+into their drift. Sprites load in the background, so the animation starts
+almost immediately. The page respects `prefers-reduced-motion`.
+
+**Settings:** the ⚙ button (bottom right, appears when you move the mouse)
+adjusts leaf density and speed and switches between a dark and a light
+background. Choices are remembered in the browser.
 
 **Keys:** `F` or double-click for fullscreen · `Space` pause · `↑`/`↓` more or fewer leaves · `H` hide hints
 
-**URL options:** `?count=40`, `?speed=0.6`, `?size=1.4`, `?bg=light`, `?hint=0`, and
-`?bg=transparent`, which makes the page easy to embed as a background:
-
-```html
-<iframe src="https://marissa-clark.github.io/LeafArt/?bg=transparent&hint=0&count=25"
-        style="position:fixed; inset:0; width:100%; height:100%; border:0; pointer-events:none"></iframe>
-```
+**URL options** override the saved settings: `?count=40`, `?speed=0.6`, `?size=1.4`, `?bg=light`, `?hint=0`.
 
 Run it locally (it loads its sprites with `fetch`, so it needs a server rather than `file://`):
 

@@ -9,81 +9,138 @@
   :root {
     --bg-inner: #1b1320;
     --bg-outer: #07060a;
-    --text: rgba(255, 244, 230, 0.78);
-    --text-dim: rgba(255, 244, 230, 0.45);
-    --key-bg: rgba(255, 244, 230, 0.1);
+    --text: rgba(255, 244, 230, 0.82);
+    --text-dim: rgba(255, 244, 230, 0.5);
+    --chip: rgba(255, 244, 230, 0.1);
+    --panel: rgba(20, 14, 22, 0.82);
+    --accent: #e8743b;
   }
   :root[data-bg="light"] {
     --bg-inner: #faf5ec;
     --bg-outer: #e9dfcf;
-    --text: rgba(40, 28, 20, 0.8);
-    --text-dim: rgba(40, 28, 20, 0.5);
-    --key-bg: rgba(40, 28, 20, 0.08);
+    --text: rgba(40, 28, 20, 0.85);
+    --text-dim: rgba(40, 28, 20, 0.55);
+    --chip: rgba(40, 28, 20, 0.08);
+    --panel: rgba(255, 250, 242, 0.88);
+    --accent: #b8471c;
   }
   html, body { margin: 0; height: 100%; overflow: hidden; }
   body {
     background: radial-gradient(ellipse at 50% 40%, var(--bg-inner), var(--bg-outer) 75%);
     font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
     color: var(--text);
+    transition: background 0.6s;
   }
-  :root[data-bg="transparent"] body { background: transparent; }
-  canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
   body.idle { cursor: none; }
 
+  .fade { transition: opacity 1s ease; }
+  .fade.hidden { opacity: 0; pointer-events: none; }
+
   .hint {
-    position: fixed; left: 16px; right: 16px; bottom: 20px;
+    position: fixed; left: 16px; right: 72px; bottom: 22px;
     display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: center;
-    transition: opacity 1.2s ease;
     pointer-events: none;
   }
-  .hint.hidden { opacity: 0; }
   .hint span { color: var(--text-dim); }
   kbd {
     font: inherit; font-size: 12px; color: var(--text);
-    background: var(--key-bg); border-radius: 4px; padding: 1px 6px; margin-right: 4px;
+    background: var(--chip); border-radius: 4px; padding: 1px 6px; margin-right: 4px;
   }
+
+  .gear {
+    position: fixed; right: 16px; bottom: 16px; width: 40px; height: 40px;
+    border: 0; border-radius: 50%; background: var(--chip); color: var(--text);
+    font-size: 20px; line-height: 40px; cursor: pointer;
+  }
+  .gear:focus-visible, .panel input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .panel {
+    position: fixed; right: 16px; bottom: 66px; width: min(260px, calc(100vw - 32px));
+    box-sizing: border-box; padding: 14px 16px; border-radius: 12px;
+    background: var(--panel); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    display: grid; gap: 12px;
+  }
+  .panel[hidden] { display: none; }
+  .panel label { display: grid; gap: 4px; }
+  .panel .row { display: flex; justify-content: space-between; color: var(--text-dim); }
+  .panel .row output { color: var(--text); font-variant-numeric: tabular-nums; }
+  .panel input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .panel .toggle { display: flex; align-items: center; gap: 8px; color: var(--text-dim); cursor: pointer; }
+  .panel .toggle input { accent-color: var(--accent); }
+
   .loading {
     position: fixed; inset: 0; display: grid; place-items: center;
-    color: var(--text-dim); letter-spacing: 0.08em; transition: opacity 0.8s;
-    pointer-events: none;
+    color: var(--text-dim); letter-spacing: 0.08em; pointer-events: none;
   }
-  .loading.done { opacity: 0; }
 </style>
 </head>
 <body>
 <canvas id="sky"></canvas>
-<div class="loading" id="loading">gathering leaves…</div>
-<div class="hint" id="hint">
+<div class="loading fade" id="loading">gathering leaves…</div>
+
+<div class="hint fade hidden" id="hint">
   <span><kbd>F</kbd>fullscreen</span>
   <span><kbd>Space</kbd>pause</span>
   <span><kbd>↑</kbd><kbd>↓</kbd>more / fewer leaves</span>
   <span><kbd>H</kbd>hide this</span>
 </div>
 
+<button class="gear fade hidden" id="gear" aria-label="Settings" aria-expanded="false" aria-controls="panel">⚙</button>
+<div class="panel" id="panel" hidden>
+  <label>
+    <span class="row">Leaves <output id="count-out"></output></span>
+    <input type="range" id="count" min="5" max="150" step="1">
+  </label>
+  <label>
+    <span class="row">Speed <output id="speed-out"></output></span>
+    <input type="range" id="speed" min="0.2" max="2.5" step="0.1">
+  </label>
+  <label class="toggle"><input type="checkbox" id="light"> Light background</label>
+</div>
+
 <script>
 /*
  * Falling Leaves: every leaf here is a real scanned leaf (see ../README.md).
  *
- * URL options, e.g. index.html?count=30&speed=0.7&bg=light
+ * URL options (override saved settings), e.g. index.html?count=30&speed=0.7&bg=light
  *   count  number of leaves on screen (default: scales with window size)
  *   speed  fall speed multiplier (default 1)
  *   size   leaf size multiplier (default 1)
- *   bg     dark | light | transparent  (transparent is for embedding)
+ *   bg     dark | light
  *   hint   0 to never show the keyboard hint
  */
 (() => {
   const params = new URLSearchParams(location.search);
-  const num = (key, fallback, min, max) => {
-    const v = parseFloat(params.get(key));
-    return Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : fallback;
+  const num = (value, min, max) => {
+    const v = parseFloat(value);
+    return Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : null;
   };
-  const bg = params.get("bg");
-  if (bg === "light" || bg === "transparent") document.documentElement.dataset.bg = bg;
+
+  // Settings the viewer changes in the panel are remembered per browser.
+  // Storage can be unavailable (private mode, blocked cookies), so every
+  // access is guarded and the page works fine without it.
+  const STORE_KEY = "falling-leaves-settings";
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch { /* ignore */ }
+  const save = () => {
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify({ count: countSetting, speed: speedSetting, bg: bgSetting }));
+    } catch { /* ignore */ }
+  };
 
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const speed = num("speed", 1, 0.1, 4) * (reducedMotion ? 0.35 : 1);
-  const sizeScale = num("size", 1, 0.3, 3);
-  const countParam = params.has("count") ? num("count", 0, 1, 300) : null;
+  const sizeScale = num(params.get("size"), 0.3, 3) ?? 1;
+  let speedSetting = num(params.get("speed"), 0.1, 4) ?? num(saved.speed, 0.1, 4) ?? 1;
+  let countSetting = num(params.get("count"), 1, 300) ?? num(saved.count, 1, 300);  // null = automatic
+  let bgSetting = params.get("bg") || saved.bg || "dark";
+  const speedFactor = () => speedSetting * (reducedMotion ? 0.35 : 1);
+
+  function applyBackground() {
+    if (bgSetting === "light") document.documentElement.dataset.bg = "light";
+    else delete document.documentElement.dataset.bg;
+  }
+  applyBackground();
 
   const canvas = document.getElementById("sky");
   const ctx = canvas.getContext("2d");
@@ -115,6 +172,24 @@
     await Promise.all(Array.from({ length: 6 }, worker));
   }
 
+  // ----------------------------------------------------------------- breeze
+  // The pointer's recent velocity, smoothed. It decays to zero when the
+  // pointer stops, so a resting cursor leaves the scene undisturbed.
+  const pointer = { x: -1e4, y: -1e4, vx: 0, vy: 0, t: 0 };
+
+  function trackPointer(e) {
+    const now = performance.now();
+    const dt = Math.max(8, now - pointer.t) / 1000;
+    if (pointer.t && now - pointer.t < 100) {
+      const blend = 0.35;
+      pointer.vx += ((e.clientX - pointer.x) / dt - pointer.vx) * blend;
+      pointer.vy += ((e.clientY - pointer.y) / dt - pointer.vy) * blend;
+    }
+    pointer.x = e.clientX;
+    pointer.y = e.clientY;
+    pointer.t = now;
+  }
+
   // ----------------------------------------------------------------- leaves
   class Leaf {
     constructor(scatter) { this.reset(scatter); }
@@ -136,20 +211,43 @@
       this.spin = rand(0.15, 0.7) * (Math.random() < 0.5 ? -1 : 1);
       this.flipFreq = reducedMotion ? 0 : rand(0.3, 1.1);
       this.flipPhase = rand(0, Math.PI * 2);
+      this.pushX = this.pushY = this.pushSpin = 0;      // velocity added by the breeze
     }
 
     update(dt, t, wind) {
+      const speed = speedFactor();
       const flip = Math.cos(this.flipPhase + t * this.flipFreq);
       // A leaf seen edge-on catches less air and drops a little faster.
       const drag = 0.75 + 0.45 * (1 - Math.abs(flip));
-      this.y += this.fall * drag * speed * dt;
-      this.x += (wind * this.depth +
-                 Math.cos(this.swayPhase + t * this.swayFreq) * this.swayAmp * this.swayFreq) * speed * dt;
-      this.angle += this.spin * speed * dt;
+
+      // Breeze: leaves near a moving pointer pick up some of its velocity,
+      // more when close and in the foreground, plus a little extra spin.
+      const dx = this.x - pointer.x, dy = this.y - pointer.y;
+      const reach = baseSize * 2.2;
+      const dist = Math.hypot(dx, dy);
+      if (dist < reach) {
+        const falloff = (1 - dist / reach) ** 2 * this.depth;
+        const gain = Math.min(1, dt * 6) * falloff * (reducedMotion ? 0.3 : 1);
+        this.pushX += (pointer.vx * 0.6 - this.pushX) * gain;
+        this.pushY += (pointer.vy * 0.6 - this.pushY) * gain;
+        const across = (dx * pointer.vy - dy * pointer.vx) / (dist + 1);  // which way to twist
+        this.pushSpin += across * 0.004 * gain;
+      }
+      const settle = Math.exp(-dt * 1.4);
+      this.pushX *= settle;
+      this.pushY *= settle;
+      this.pushSpin *= settle;
+
+      this.y += (this.fall * drag * speed + this.pushY) * dt;
+      this.x += ((wind * this.depth +
+                  Math.cos(this.swayPhase + t * this.swayFreq) * this.swayAmp * this.swayFreq) * speed +
+                 this.pushX) * dt;
+      this.angle += (this.spin * speed + this.pushSpin) * dt;
       this.flip = flip;
 
       const margin = Math.max(this.w, this.h);
       if (this.y > height + margin) this.reset(false);
+      else if (this.y < -4 * margin) this.y = -margin, this.pushY = 0;  // blown off the top
       else if (this.x < -2 * margin) this.x += width + 3 * margin;
       else if (this.x > width + 2 * margin) this.x -= width + 3 * margin;
     }
@@ -166,15 +264,15 @@
   }
 
   let leaves = [];
-  let targetCount = 0;
 
-  function autoCount() {
-    return Math.round(Math.min(90, Math.max(12, (width * height) / 26000)));
-  }
+  const autoCount = () => Math.round(Math.min(90, Math.max(12, (width * height) / 26000)));
+  const targetCount = () => countSetting ?? autoCount();
 
   function syncLeafCount(scatter) {
-    while (leaves.length < targetCount) leaves.push(new Leaf(scatter));
-    if (leaves.length > targetCount) leaves.length = targetCount;
+    if (!sprites.length) return;
+    const target = targetCount();
+    while (leaves.length < target) leaves.push(new Leaf(scatter));
+    if (leaves.length > target) leaves.length = target;
     leaves.sort((a, b) => a.depth - b.depth);  // far leaves are drawn first
   }
 
@@ -193,10 +291,7 @@
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
     baseSize = Math.min(150, Math.max(55, Math.min(width, height) * 0.12)) * sizeScale;
-    if (countParam === null && sprites.length) {
-      targetCount = autoCount();
-      syncLeafCount(true);
-    }
+    syncLeafCount(true);
   }
 
   let paused = false;
@@ -206,6 +301,9 @@
   function frame(now) {
     const dt = Math.min(0.05, (now - last) / 1000);  // clamp after tab switches
     last = now;
+    const still = Math.exp(-dt * 8);
+    pointer.vx *= still;
+    pointer.vy *= still;
     if (!paused) {
       simTime += dt;
       const wind = windAt(simTime);
@@ -219,13 +317,63 @@
 
   // --------------------------------------------------------------- controls
   const hint = document.getElementById("hint");
-  let hintTimer, idleTimer;
-  const showHint = hintFor => {
-    if (params.get("hint") === "0") return hint.classList.add("hidden");
-    hint.classList.remove("hidden");
-    clearTimeout(hintTimer);
-    hintTimer = setTimeout(() => hint.classList.add("hidden"), hintFor);
-  };
+  const gear = document.getElementById("gear");
+  const panel = document.getElementById("panel");
+  const countInput = document.getElementById("count");
+  const speedInput = document.getElementById("speed");
+  const lightInput = document.getElementById("light");
+  let hintsOff = params.get("hint") === "0";
+  let chromeTimer;
+
+  // The hint and settings button appear on activity and fade when idle.
+  function showChrome(duration = 3000) {
+    document.body.classList.remove("idle");
+    gear.classList.remove("hidden");
+    if (!hintsOff) hint.classList.remove("hidden");
+    clearTimeout(chromeTimer);
+    chromeTimer = setTimeout(() => {
+      if (!panel.hidden) return;  // keep everything up while settings are open
+      hint.classList.add("hidden");
+      gear.classList.add("hidden");
+      document.body.classList.add("idle");
+    }, duration);
+  }
+
+  function refreshPanel() {
+    countInput.value = targetCount();
+    document.getElementById("count-out").value = countSetting === null ? `${targetCount()} (auto)` : countSetting;
+    speedInput.value = speedSetting;
+    document.getElementById("speed-out").value = `${speedSetting.toFixed(1)}×`;
+    lightInput.checked = bgSetting === "light";
+  }
+
+  function setPanelOpen(open) {
+    panel.hidden = !open;
+    gear.setAttribute("aria-expanded", String(open));
+    if (open) refreshPanel();
+    showChrome();
+  }
+
+  gear.addEventListener("click", () => setPanelOpen(panel.hidden));
+  countInput.addEventListener("input", () => {
+    countSetting = Number(countInput.value);
+    syncLeafCount(false);
+    refreshPanel();
+    save();
+  });
+  speedInput.addEventListener("input", () => {
+    speedSetting = Number(speedInput.value);
+    refreshPanel();
+    save();
+  });
+  lightInput.addEventListener("change", () => {
+    bgSetting = lightInput.checked ? "light" : "dark";
+    applyBackground();
+    save();
+  });
+  // Keep the breeze and fullscreen shortcuts from firing inside the panel.
+  panel.addEventListener("pointermove", e => e.stopPropagation());
+  panel.addEventListener("dblclick", e => e.stopPropagation());
 
   function toggleFullscreen() {
     if (document.fullscreenElement) document.exitFullscreen();
@@ -233,21 +381,23 @@
   }
 
   addEventListener("keydown", e => {
+    if (e.target instanceof HTMLInputElement) return;
     if (e.key === "f" || e.key === "F") toggleFullscreen();
     else if (e.key === " ") { paused = !paused; e.preventDefault(); }
-    else if (e.key === "h" || e.key === "H") hint.classList.add("hidden");
+    else if (e.key === "h" || e.key === "H") { hintsOff = true; hint.classList.add("hidden"); }
+    else if (e.key === "Escape") setPanelOpen(false);
     else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-      targetCount = Math.max(1, Math.min(300, targetCount + (e.key === "ArrowUp" ? 5 : -5)));
+      countSetting = Math.max(1, Math.min(300, targetCount() + (e.key === "ArrowUp" ? 5 : -5)));
       syncLeafCount(false);
+      refreshPanel();
+      save();
       e.preventDefault();
     }
   });
-  addEventListener("dblclick", toggleFullscreen);
-  addEventListener("pointermove", () => {
-    document.body.classList.remove("idle");
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(() => document.body.classList.add("idle"), 2500);
-  });
+  canvas.addEventListener("dblclick", toggleFullscreen);
+  canvas.addEventListener("pointerdown", () => { if (!panel.hidden) setPanelOpen(false); });
+  addEventListener("pointermove", e => { trackPointer(e); showChrome(); });
+  addEventListener("pointerleave", () => { pointer.x = pointer.y = -1e4; });
   addEventListener("resize", resize);
 
   // ------------------------------------------------------------------ start
@@ -262,10 +412,9 @@
       document.getElementById("loading").textContent = "could not load leaves";
       return;
     }
-    targetCount = countParam ?? autoCount();
     syncLeafCount(true);
-    document.getElementById("loading").classList.add("done");
-    showHint(5000);
+    document.getElementById("loading").classList.add("hidden");
+    showChrome(5000);
     requestAnimationFrame(t => { last = t; frame(t); });
   });
 })();
