@@ -1,0 +1,2375 @@
+[
+ {
+  "src": "leaves/leaf_000.webp",
+  "w": 222,
+  "h": 256,
+  "color": "#4c373a",
+  "hue": -7.4
+ },
+ {
+  "src": "leaves/leaf_001.webp",
+  "w": 209,
+  "h": 256,
+  "color": "#58383c",
+  "hue": -6.5
+ },
+ {
+  "src": "leaves/leaf_002.webp",
+  "w": 256,
+  "h": 235,
+  "color": "#553438",
+  "hue": -6.2
+ },
+ {
+  "src": "leaves/leaf_003.webp",
+  "w": 240,
+  "h": 256,
+  "color": "#5e3539",
+  "hue": -6.0
+ },
+ {
+  "src": "leaves/leaf_004.webp",
+  "w": 256,
+  "h": 237,
+  "color": "#583337",
+  "hue": -5.9
+ },
+ {
+  "src": "leaves/leaf_005.webp",
+  "w": 236,
+  "h": 256,
+  "color": "#452b2e",
+  "hue": -5.7
+ },
+ {
+  "src": "leaves/leaf_006.webp",
+  "w": 256,
+  "h": 230,
+  "color": "#54292d",
+  "hue": -5.6
+ },
+ {
+  "src": "leaves/leaf_007.webp",
+  "w": 231,
+  "h": 256,
+  "color": "#5b3135",
+  "hue": -5.6
+ },
+ {
+  "src": "leaves/leaf_008.webp",
+  "w": 218,
+  "h": 256,
+  "color": "#472c2e",
+  "hue": -5.5
+ },
+ {
+  "src": "leaves/leaf_009.webp",
+  "w": 256,
+  "h": 202,
+  "color": "#60363a",
+  "hue": -5.5
+ },
+ {
+  "src": "leaves/leaf_010.webp",
+  "w": 251,
+  "h": 256,
+  "color": "#5c3337",
+  "hue": -5.5
+ },
+ {
+  "src": "leaves/leaf_011.webp",
+  "w": 223,
+  "h": 256,
+  "color": "#603337",
+  "hue": -5.5
+ },
+ {
+  "src": "leaves/leaf_012.webp",
+  "w": 227,
+  "h": 256,
+  "color": "#502e31",
+  "hue": -5.3
+ },
+ {
+  "src": "leaves/leaf_013.webp",
+  "w": 256,
+  "h": 242,
+  "color": "#522b2f",
+  "hue": -5.3
+ },
+ {
+  "src": "leaves/leaf_014.webp",
+  "w": 227,
+  "h": 256,
+  "color": "#573336",
+  "hue": -5.2
+ },
+ {
+  "src": "leaves/leaf_015.webp",
+  "w": 226,
+  "h": 256,
+  "color": "#4f2c2f",
+  "hue": -5.2
+ },
+ {
+  "src": "leaves/leaf_016.webp",
+  "w": 188,
+  "h": 256,
+  "color": "#623639",
+  "hue": -5.1
+ },
+ {
+  "src": "leaves/leaf_017.webp",
+  "w": 256,
+  "h": 230,
+  "color": "#5a3235",
+  "hue": -5.1
+ },
+ {
+  "src": "leaves/leaf_018.webp",
+  "w": 228,
+  "h": 256,
+  "color": "#583336",
+  "hue": -5.1
+ },
+ {
+  "src": "leaves/leaf_019.webp",
+  "w": 228,
+  "h": 256,
+  "color": "#6a3237",
+  "hue": -5.1
+ },
+ {
+  "src": "leaves/leaf_020.webp",
+  "w": 205,
+  "h": 256,
+  "color": "#5f2c30",
+  "hue": -5.1
+ },
+ {
+  "src": "leaves/leaf_021.webp",
+  "w": 256,
+  "h": 208,
+  "color": "#522e31",
+  "hue": -5.0
+ },
+ {
+  "src": "leaves/leaf_022.webp",
+  "w": 252,
+  "h": 256,
+  "color": "#562d30",
+  "hue": -5.0
+ },
+ {
+  "src": "leaves/leaf_023.webp",
+  "w": 243,
+  "h": 256,
+  "color": "#602e32",
+  "hue": -5.0
+ },
+ {
+  "src": "leaves/leaf_024.webp",
+  "w": 256,
+  "h": 201,
+  "color": "#5c2d31",
+  "hue": -4.9
+ },
+ {
+  "src": "leaves/leaf_025.webp",
+  "w": 240,
+  "h": 256,
+  "color": "#5e2f33",
+  "hue": -4.9
+ },
+ {
+  "src": "leaves/leaf_026.webp",
+  "w": 227,
+  "h": 256,
+  "color": "#513133",
+  "hue": -4.9
+ },
+ {
+  "src": "leaves/leaf_027.webp",
+  "w": 256,
+  "h": 234,
+  "color": "#633135",
+  "hue": -4.9
+ },
+ {
+  "src": "leaves/leaf_028.webp",
+  "w": 256,
+  "h": 243,
+  "color": "#523032",
+  "hue": -4.9
+ },
+ {
+  "src": "leaves/leaf_029.webp",
+  "w": 253,
+  "h": 256,
+  "color": "#4e292c",
+  "hue": -4.9
+ },
+ {
+  "src": "leaves/leaf_030.webp",
+  "w": 193,
+  "h": 256,
+  "color": "#542a2e",
+  "hue": -4.8
+ },
+ {
+  "src": "leaves/leaf_031.webp",
+  "w": 231,
+  "h": 256,
+  "color": "#603336",
+  "hue": -4.8
+ },
+ {
+  "src": "leaves/leaf_032.webp",
+  "w": 226,
+  "h": 256,
+  "color": "#57383a",
+  "hue": -4.8
+ },
+ {
+  "src": "leaves/leaf_033.webp",
+  "w": 250,
+  "h": 256,
+  "color": "#502a2d",
+  "hue": -4.8
+ },
+ {
+  "src": "leaves/leaf_034.webp",
+  "w": 232,
+  "h": 256,
+  "color": "#532e31",
+  "hue": -4.7
+ },
+ {
+  "src": "leaves/leaf_035.webp",
+  "w": 256,
+  "h": 208,
+  "color": "#523033",
+  "hue": -4.7
+ },
+ {
+  "src": "leaves/leaf_036.webp",
+  "w": 228,
+  "h": 256,
+  "color": "#612f33",
+  "hue": -4.7
+ },
+ {
+  "src": "leaves/leaf_037.webp",
+  "w": 256,
+  "h": 238,
+  "color": "#653438",
+  "hue": -4.7
+ },
+ {
+  "src": "leaves/leaf_038.webp",
+  "w": 181,
+  "h": 256,
+  "color": "#6b353a",
+  "hue": -4.6
+ },
+ {
+  "src": "leaves/leaf_039.webp",
+  "w": 222,
+  "h": 256,
+  "color": "#65363a",
+  "hue": -4.6
+ },
+ {
+  "src": "leaves/leaf_040.webp",
+  "w": 218,
+  "h": 256,
+  "color": "#773237",
+  "hue": -4.5
+ },
+ {
+  "src": "leaves/leaf_041.webp",
+  "w": 248,
+  "h": 256,
+  "color": "#4b292c",
+  "hue": -4.5
+ },
+ {
+  "src": "leaves/leaf_042.webp",
+  "w": 256,
+  "h": 246,
+  "color": "#5b2f32",
+  "hue": -4.5
+ },
+ {
+  "src": "leaves/leaf_043.webp",
+  "w": 253,
+  "h": 256,
+  "color": "#542c2f",
+  "hue": -4.5
+ },
+ {
+  "src": "leaves/leaf_044.webp",
+  "w": 256,
+  "h": 243,
+  "color": "#4d2c2e",
+  "hue": -4.5
+ },
+ {
+  "src": "leaves/leaf_045.webp",
+  "w": 212,
+  "h": 256,
+  "color": "#672f33",
+  "hue": -4.5
+ },
+ {
+  "src": "leaves/leaf_046.webp",
+  "w": 247,
+  "h": 256,
+  "color": "#4c292c",
+  "hue": -4.4
+ },
+ {
+  "src": "leaves/leaf_047.webp",
+  "w": 237,
+  "h": 256,
+  "color": "#612d31",
+  "hue": -4.4
+ },
+ {
+  "src": "leaves/leaf_048.webp",
+  "w": 256,
+  "h": 224,
+  "color": "#683c3f",
+  "hue": -4.4
+ },
+ {
+  "src": "leaves/leaf_049.webp",
+  "w": 256,
+  "h": 231,
+  "color": "#4e2b2d",
+  "hue": -4.4
+ },
+ {
+  "src": "leaves/leaf_050.webp",
+  "w": 235,
+  "h": 256,
+  "color": "#6c3337",
+  "hue": -4.4
+ },
+ {
+  "src": "leaves/leaf_051.webp",
+  "w": 256,
+  "h": 240,
+  "color": "#552b2e",
+  "hue": -4.4
+ },
+ {
+  "src": "leaves/leaf_052.webp",
+  "w": 238,
+  "h": 256,
+  "color": "#4c2a2d",
+  "hue": -4.3
+ },
+ {
+  "src": "leaves/leaf_053.webp",
+  "w": 203,
+  "h": 256,
+  "color": "#6c373b",
+  "hue": -4.3
+ },
+ {
+  "src": "leaves/leaf_054.webp",
+  "w": 214,
+  "h": 256,
+  "color": "#6d3236",
+  "hue": -4.2
+ },
+ {
+  "src": "leaves/leaf_055.webp",
+  "w": 256,
+  "h": 245,
+  "color": "#4f2f31",
+  "hue": -4.2
+ },
+ {
+  "src": "leaves/leaf_056.webp",
+  "w": 256,
+  "h": 230,
+  "color": "#522f31",
+  "hue": -4.2
+ },
+ {
+  "src": "leaves/leaf_057.webp",
+  "w": 256,
+  "h": 249,
+  "color": "#543436",
+  "hue": -4.2
+ },
+ {
+  "src": "leaves/leaf_058.webp",
+  "w": 193,
+  "h": 256,
+  "color": "#713e41",
+  "hue": -4.1
+ },
+ {
+  "src": "leaves/leaf_059.webp",
+  "w": 167,
+  "h": 256,
+  "color": "#783539",
+  "hue": -4.1
+ },
+ {
+  "src": "leaves/leaf_060.webp",
+  "w": 256,
+  "h": 250,
+  "color": "#4f3032",
+  "hue": -4.1
+ },
+ {
+  "src": "leaves/leaf_061.webp",
+  "w": 220,
+  "h": 256,
+  "color": "#552d30",
+  "hue": -4.1
+ },
+ {
+  "src": "leaves/leaf_062.webp",
+  "w": 256,
+  "h": 234,
+  "color": "#502a2d",
+  "hue": -4.1
+ },
+ {
+  "src": "leaves/leaf_063.webp",
+  "w": 256,
+  "h": 248,
+  "color": "#5a292c",
+  "hue": -4.0
+ },
+ {
+  "src": "leaves/leaf_064.webp",
+  "w": 230,
+  "h": 256,
+  "color": "#502e30",
+  "hue": -4.0
+ },
+ {
+  "src": "leaves/leaf_065.webp",
+  "w": 213,
+  "h": 256,
+  "color": "#633538",
+  "hue": -4.0
+ },
+ {
+  "src": "leaves/leaf_066.webp",
+  "w": 256,
+  "h": 229,
+  "color": "#3c2829",
+  "hue": -3.9
+ },
+ {
+  "src": "leaves/leaf_067.webp",
+  "w": 256,
+  "h": 250,
+  "color": "#683034",
+  "hue": -3.9
+ },
+ {
+  "src": "leaves/leaf_068.webp",
+  "w": 256,
+  "h": 253,
+  "color": "#71393c",
+  "hue": -3.8
+ },
+ {
+  "src": "leaves/leaf_069.webp",
+  "w": 210,
+  "h": 256,
+  "color": "#672d31",
+  "hue": -3.8
+ },
+ {
+  "src": "leaves/leaf_070.webp",
+  "w": 256,
+  "h": 247,
+  "color": "#513133",
+  "hue": -3.8
+ },
+ {
+  "src": "leaves/leaf_071.webp",
+  "w": 256,
+  "h": 218,
+  "color": "#472729",
+  "hue": -3.8
+ },
+ {
+  "src": "leaves/leaf_072.webp",
+  "w": 256,
+  "h": 242,
+  "color": "#482c2e",
+  "hue": -3.8
+ },
+ {
+  "src": "leaves/leaf_073.webp",
+  "w": 234,
+  "h": 256,
+  "color": "#4f2f31",
+  "hue": -3.7
+ },
+ {
+  "src": "leaves/leaf_074.webp",
+  "w": 256,
+  "h": 243,
+  "color": "#5b2f31",
+  "hue": -3.7
+ },
+ {
+  "src": "leaves/leaf_075.webp",
+  "w": 255,
+  "h": 256,
+  "color": "#7a393d",
+  "hue": -3.7
+ },
+ {
+  "src": "leaves/leaf_076.webp",
+  "w": 256,
+  "h": 207,
+  "color": "#70393c",
+  "hue": -3.6
+ },
+ {
+  "src": "leaves/leaf_077.webp",
+  "w": 256,
+  "h": 245,
+  "color": "#592d2f",
+  "hue": -3.6
+ },
+ {
+  "src": "leaves/leaf_078.webp",
+  "w": 203,
+  "h": 256,
+  "color": "#6a3538",
+  "hue": -3.6
+ },
+ {
+  "src": "leaves/leaf_079.webp",
+  "w": 240,
+  "h": 256,
+  "color": "#5f3638",
+  "hue": -3.5
+ },
+ {
+  "src": "leaves/leaf_080.webp",
+  "w": 255,
+  "h": 256,
+  "color": "#733033",
+  "hue": -3.5
+ },
+ {
+  "src": "leaves/leaf_081.webp",
+  "w": 256,
+  "h": 214,
+  "color": "#65393b",
+  "hue": -3.5
+ },
+ {
+  "src": "leaves/leaf_082.webp",
+  "w": 256,
+  "h": 228,
+  "color": "#692e32",
+  "hue": -3.5
+ },
+ {
+  "src": "leaves/leaf_083.webp",
+  "w": 249,
+  "h": 256,
+  "color": "#5b2e31",
+  "hue": -3.5
+ },
+ {
+  "src": "leaves/leaf_084.webp",
+  "w": 232,
+  "h": 256,
+  "color": "#5a292b",
+  "hue": -3.4
+ },
+ {
+  "src": "leaves/leaf_085.webp",
+  "w": 256,
+  "h": 219,
+  "color": "#672e31",
+  "hue": -3.4
+ },
+ {
+  "src": "leaves/leaf_086.webp",
+  "w": 227,
+  "h": 256,
+  "color": "#73393c",
+  "hue": -3.4
+ },
+ {
+  "src": "leaves/leaf_087.webp",
+  "w": 256,
+  "h": 218,
+  "color": "#67383b",
+  "hue": -3.4
+ },
+ {
+  "src": "leaves/leaf_088.webp",
+  "w": 212,
+  "h": 256,
+  "color": "#633437",
+  "hue": -3.4
+ },
+ {
+  "src": "leaves/leaf_089.webp",
+  "w": 256,
+  "h": 243,
+  "color": "#6c292d",
+  "hue": -3.4
+ },
+ {
+  "src": "leaves/leaf_090.webp",
+  "w": 204,
+  "h": 256,
+  "color": "#733235",
+  "hue": -3.3
+ },
+ {
+  "src": "leaves/leaf_091.webp",
+  "w": 236,
+  "h": 256,
+  "color": "#672e31",
+  "hue": -3.2
+ },
+ {
+  "src": "leaves/leaf_092.webp",
+  "w": 256,
+  "h": 247,
+  "color": "#652e31",
+  "hue": -3.2
+ },
+ {
+  "src": "leaves/leaf_093.webp",
+  "w": 242,
+  "h": 256,
+  "color": "#733a3d",
+  "hue": -3.2
+ },
+ {
+  "src": "leaves/leaf_094.webp",
+  "w": 256,
+  "h": 249,
+  "color": "#522c2e",
+  "hue": -3.2
+ },
+ {
+  "src": "leaves/leaf_095.webp",
+  "w": 256,
+  "h": 243,
+  "color": "#813f43",
+  "hue": -3.2
+ },
+ {
+  "src": "leaves/leaf_096.webp",
+  "w": 224,
+  "h": 256,
+  "color": "#6c383b",
+  "hue": -3.2
+ },
+ {
+  "src": "leaves/leaf_097.webp",
+  "w": 256,
+  "h": 220,
+  "color": "#713235",
+  "hue": -3.1
+ },
+ {
+  "src": "leaves/leaf_098.webp",
+  "w": 217,
+  "h": 256,
+  "color": "#502a2c",
+  "hue": -3.1
+ },
+ {
+  "src": "leaves/leaf_099.webp",
+  "w": 253,
+  "h": 256,
+  "color": "#642e31",
+  "hue": -3.0
+ },
+ {
+  "src": "leaves/leaf_100.webp",
+  "w": 251,
+  "h": 256,
+  "color": "#663336",
+  "hue": -2.9
+ },
+ {
+  "src": "leaves/leaf_101.webp",
+  "w": 215,
+  "h": 256,
+  "color": "#723336",
+  "hue": -2.8
+ },
+ {
+  "src": "leaves/leaf_102.webp",
+  "w": 216,
+  "h": 256,
+  "color": "#673639",
+  "hue": -2.8
+ },
+ {
+  "src": "leaves/leaf_103.webp",
+  "w": 256,
+  "h": 225,
+  "color": "#743134",
+  "hue": -2.8
+ },
+ {
+  "src": "leaves/leaf_104.webp",
+  "w": 256,
+  "h": 247,
+  "color": "#622f31",
+  "hue": -2.8
+ },
+ {
+  "src": "leaves/leaf_105.webp",
+  "w": 256,
+  "h": 250,
+  "color": "#842428",
+  "hue": -2.7
+ },
+ {
+  "src": "leaves/leaf_106.webp",
+  "w": 227,
+  "h": 256,
+  "color": "#4b2a2b",
+  "hue": -2.7
+ },
+ {
+  "src": "leaves/leaf_107.webp",
+  "w": 235,
+  "h": 256,
+  "color": "#56282a",
+  "hue": -2.5
+ },
+ {
+  "src": "leaves/leaf_108.webp",
+  "w": 256,
+  "h": 247,
+  "color": "#782d30",
+  "hue": -2.5
+ },
+ {
+  "src": "leaves/leaf_109.webp",
+  "w": 222,
+  "h": 256,
+  "color": "#763638",
+  "hue": -2.4
+ },
+ {
+  "src": "leaves/leaf_110.webp",
+  "w": 231,
+  "h": 256,
+  "color": "#5d3032",
+  "hue": -2.3
+ },
+ {
+  "src": "leaves/leaf_111.webp",
+  "w": 220,
+  "h": 256,
+  "color": "#8d3539",
+  "hue": -2.3
+ },
+ {
+  "src": "leaves/leaf_112.webp",
+  "w": 256,
+  "h": 246,
+  "color": "#87282c",
+  "hue": -2.3
+ },
+ {
+  "src": "leaves/leaf_113.webp",
+  "w": 242,
+  "h": 256,
+  "color": "#843b3d",
+  "hue": -2.3
+ },
+ {
+  "src": "leaves/leaf_114.webp",
+  "w": 231,
+  "h": 256,
+  "color": "#823639",
+  "hue": -2.2
+ },
+ {
+  "src": "leaves/leaf_115.webp",
+  "w": 243,
+  "h": 256,
+  "color": "#782a2d",
+  "hue": -2.2
+ },
+ {
+  "src": "leaves/leaf_116.webp",
+  "w": 252,
+  "h": 256,
+  "color": "#5b3334",
+  "hue": -2.1
+ },
+ {
+  "src": "leaves/leaf_117.webp",
+  "w": 256,
+  "h": 240,
+  "color": "#8a373a",
+  "hue": -2.1
+ },
+ {
+  "src": "leaves/leaf_118.webp",
+  "w": 178,
+  "h": 256,
+  "color": "#883336",
+  "hue": -2.0
+ },
+ {
+  "src": "leaves/leaf_119.webp",
+  "w": 256,
+  "h": 239,
+  "color": "#71292b",
+  "hue": -2.0
+ },
+ {
+  "src": "leaves/leaf_120.webp",
+  "w": 245,
+  "h": 256,
+  "color": "#763436",
+  "hue": -2.0
+ },
+ {
+  "src": "leaves/leaf_121.webp",
+  "w": 224,
+  "h": 256,
+  "color": "#78282a",
+  "hue": -2.0
+ },
+ {
+  "src": "leaves/leaf_122.webp",
+  "w": 246,
+  "h": 256,
+  "color": "#75383a",
+  "hue": -2.0
+ },
+ {
+  "src": "leaves/leaf_123.webp",
+  "w": 243,
+  "h": 256,
+  "color": "#913437",
+  "hue": -1.9
+ },
+ {
+  "src": "leaves/leaf_124.webp",
+  "w": 256,
+  "h": 240,
+  "color": "#6d3739",
+  "hue": -1.9
+ },
+ {
+  "src": "leaves/leaf_125.webp",
+  "w": 256,
+  "h": 249,
+  "color": "#91383b",
+  "hue": -1.9
+ },
+ {
+  "src": "leaves/leaf_126.webp",
+  "w": 169,
+  "h": 256,
+  "color": "#86393b",
+  "hue": -1.9
+ },
+ {
+  "src": "leaves/leaf_127.webp",
+  "w": 252,
+  "h": 256,
+  "color": "#643a3b",
+  "hue": -1.9
+ },
+ {
+  "src": "leaves/leaf_128.webp",
+  "w": 256,
+  "h": 219,
+  "color": "#792628",
+  "hue": -1.8
+ },
+ {
+  "src": "leaves/leaf_129.webp",
+  "w": 180,
+  "h": 256,
+  "color": "#873a3c",
+  "hue": -1.8
+ },
+ {
+  "src": "leaves/leaf_130.webp",
+  "w": 221,
+  "h": 256,
+  "color": "#792f31",
+  "hue": -1.7
+ },
+ {
+  "src": "leaves/leaf_131.webp",
+  "w": 219,
+  "h": 256,
+  "color": "#9b2a2d",
+  "hue": -1.6
+ },
+ {
+  "src": "leaves/leaf_132.webp",
+  "w": 256,
+  "h": 256,
+  "color": "#8e383b",
+  "hue": -1.6
+ },
+ {
+  "src": "leaves/leaf_133.webp",
+  "w": 256,
+  "h": 226,
+  "color": "#7d3436",
+  "hue": -1.6
+ },
+ {
+  "src": "leaves/leaf_134.webp",
+  "w": 180,
+  "h": 256,
+  "color": "#802e30",
+  "hue": -1.6
+ },
+ {
+  "src": "leaves/leaf_135.webp",
+  "w": 256,
+  "h": 234,
+  "color": "#812527",
+  "hue": -1.4
+ },
+ {
+  "src": "leaves/leaf_136.webp",
+  "w": 256,
+  "h": 214,
+  "color": "#99383a",
+  "hue": -1.4
+ },
+ {
+  "src": "leaves/leaf_137.webp",
+  "w": 256,
+  "h": 219,
+  "color": "#8e3638",
+  "hue": -1.4
+ },
+ {
+  "src": "leaves/leaf_138.webp",
+  "w": 205,
+  "h": 256,
+  "color": "#6b3c3d",
+  "hue": -1.3
+ },
+ {
+  "src": "leaves/leaf_139.webp",
+  "w": 228,
+  "h": 256,
+  "color": "#893032",
+  "hue": -1.3
+ },
+ {
+  "src": "leaves/leaf_140.webp",
+  "w": 214,
+  "h": 256,
+  "color": "#932b2e",
+  "hue": -1.3
+ },
+ {
+  "src": "leaves/leaf_141.webp",
+  "w": 256,
+  "h": 196,
+  "color": "#8e3a3c",
+  "hue": -1.3
+ },
+ {
+  "src": "leaves/leaf_142.webp",
+  "w": 202,
+  "h": 256,
+  "color": "#6a3c3d",
+  "hue": -1.3
+ },
+ {
+  "src": "leaves/leaf_143.webp",
+  "w": 256,
+  "h": 235,
+  "color": "#552b2c",
+  "hue": -1.3
+ },
+ {
+  "src": "leaves/leaf_144.webp",
+  "w": 256,
+  "h": 241,
+  "color": "#763a3b",
+  "hue": -1.1
+ },
+ {
+  "src": "leaves/leaf_145.webp",
+  "w": 256,
+  "h": 241,
+  "color": "#4f3131",
+  "hue": -1.1
+ },
+ {
+  "src": "leaves/leaf_146.webp",
+  "w": 256,
+  "h": 207,
+  "color": "#a42f31",
+  "hue": -1.1
+ },
+ {
+  "src": "leaves/leaf_147.webp",
+  "w": 256,
+  "h": 215,
+  "color": "#843a3c",
+  "hue": -1.1
+ },
+ {
+  "src": "leaves/leaf_148.webp",
+  "w": 192,
+  "h": 256,
+  "color": "#743f40",
+  "hue": -1.1
+ },
+ {
+  "src": "leaves/leaf_149.webp",
+  "w": 224,
+  "h": 256,
+  "color": "#942b2d",
+  "hue": -1.0
+ },
+ {
+  "src": "leaves/leaf_150.webp",
+  "w": 256,
+  "h": 235,
+  "color": "#95292b",
+  "hue": -1.0
+ },
+ {
+  "src": "leaves/leaf_151.webp",
+  "w": 256,
+  "h": 221,
+  "color": "#ab3435",
+  "hue": -0.8
+ },
+ {
+  "src": "leaves/leaf_152.webp",
+  "w": 256,
+  "h": 234,
+  "color": "#a43436",
+  "hue": -0.8
+ },
+ {
+  "src": "leaves/leaf_153.webp",
+  "w": 256,
+  "h": 242,
+  "color": "#83292a",
+  "hue": -0.8
+ },
+ {
+  "src": "leaves/leaf_154.webp",
+  "w": 256,
+  "h": 249,
+  "color": "#a83435",
+  "hue": -0.7
+ },
+ {
+  "src": "leaves/leaf_155.webp",
+  "w": 256,
+  "h": 253,
+  "color": "#793636",
+  "hue": -0.5
+ },
+ {
+  "src": "leaves/leaf_156.webp",
+  "w": 256,
+  "h": 251,
+  "color": "#a22d2e",
+  "hue": -0.5
+ },
+ {
+  "src": "leaves/leaf_157.webp",
+  "w": 256,
+  "h": 246,
+  "color": "#833131",
+  "hue": -0.5
+ },
+ {
+  "src": "leaves/leaf_158.webp",
+  "w": 256,
+  "h": 238,
+  "color": "#b03435",
+  "hue": -0.4
+ },
+ {
+  "src": "leaves/leaf_159.webp",
+  "w": 256,
+  "h": 205,
+  "color": "#783d3d",
+  "hue": -0.4
+ },
+ {
+  "src": "leaves/leaf_160.webp",
+  "w": 256,
+  "h": 233,
+  "color": "#6a3636",
+  "hue": -0.3
+ },
+ {
+  "src": "leaves/leaf_161.webp",
+  "w": 256,
+  "h": 252,
+  "color": "#a82d2e",
+  "hue": -0.3
+ },
+ {
+  "src": "leaves/leaf_162.webp",
+  "w": 256,
+  "h": 203,
+  "color": "#783d3d",
+  "hue": -0.3
+ },
+ {
+  "src": "leaves/leaf_163.webp",
+  "w": 225,
+  "h": 256,
+  "color": "#ad3333",
+  "hue": -0.2
+ },
+ {
+  "src": "leaves/leaf_164.webp",
+  "w": 215,
+  "h": 256,
+  "color": "#6b2f2f",
+  "hue": -0.0
+ },
+ {
+  "src": "leaves/leaf_165.webp",
+  "w": 256,
+  "h": 227,
+  "color": "#a03a3a",
+  "hue": -0.0
+ },
+ {
+  "src": "leaves/leaf_166.webp",
+  "w": 256,
+  "h": 247,
+  "color": "#a02929",
+  "hue": 0.1
+ },
+ {
+  "src": "leaves/leaf_167.webp",
+  "w": 197,
+  "h": 256,
+  "color": "#a22828",
+  "hue": 0.1
+ },
+ {
+  "src": "leaves/leaf_168.webp",
+  "w": 198,
+  "h": 256,
+  "color": "#693b3b",
+  "hue": 0.3
+ },
+ {
+  "src": "leaves/leaf_169.webp",
+  "w": 256,
+  "h": 214,
+  "color": "#b32e2e",
+  "hue": 0.3
+ },
+ {
+  "src": "leaves/leaf_170.webp",
+  "w": 230,
+  "h": 256,
+  "color": "#843534",
+  "hue": 0.4
+ },
+ {
+  "src": "leaves/leaf_171.webp",
+  "w": 194,
+  "h": 256,
+  "color": "#c13736",
+  "hue": 0.5
+ },
+ {
+  "src": "leaves/leaf_172.webp",
+  "w": 194,
+  "h": 256,
+  "color": "#c03736",
+  "hue": 0.6
+ },
+ {
+  "src": "leaves/leaf_173.webp",
+  "w": 255,
+  "h": 256,
+  "color": "#944140",
+  "hue": 0.6
+ },
+ {
+  "src": "leaves/leaf_174.webp",
+  "w": 201,
+  "h": 256,
+  "color": "#693a3a",
+  "hue": 0.6
+ },
+ {
+  "src": "leaves/leaf_175.webp",
+  "w": 256,
+  "h": 218,
+  "color": "#513535",
+  "hue": 0.6
+ },
+ {
+  "src": "leaves/leaf_176.webp",
+  "w": 233,
+  "h": 256,
+  "color": "#863939",
+  "hue": 0.7
+ },
+ {
+  "src": "leaves/leaf_177.webp",
+  "w": 237,
+  "h": 256,
+  "color": "#873a39",
+  "hue": 0.7
+ },
+ {
+  "src": "leaves/leaf_178.webp",
+  "w": 246,
+  "h": 256,
+  "color": "#c53c3a",
+  "hue": 0.7
+ },
+ {
+  "src": "leaves/leaf_179.webp",
+  "w": 256,
+  "h": 218,
+  "color": "#a43635",
+  "hue": 0.8
+ },
+ {
+  "src": "leaves/leaf_180.webp",
+  "w": 239,
+  "h": 256,
+  "color": "#852f2d",
+  "hue": 1.2
+ },
+ {
+  "src": "leaves/leaf_181.webp",
+  "w": 256,
+  "h": 254,
+  "color": "#ac3532",
+  "hue": 1.2
+ },
+ {
+  "src": "leaves/leaf_182.webp",
+  "w": 171,
+  "h": 256,
+  "color": "#972b28",
+  "hue": 1.6
+ },
+ {
+  "src": "leaves/leaf_183.webp",
+  "w": 237,
+  "h": 256,
+  "color": "#b84642",
+  "hue": 1.8
+ },
+ {
+  "src": "leaves/leaf_184.webp",
+  "w": 256,
+  "h": 233,
+  "color": "#9d2925",
+  "hue": 1.8
+ },
+ {
+  "src": "leaves/leaf_185.webp",
+  "w": 256,
+  "h": 239,
+  "color": "#8b2925",
+  "hue": 2.0
+ },
+ {
+  "src": "leaves/leaf_186.webp",
+  "w": 237,
+  "h": 256,
+  "color": "#ba3e3a",
+  "hue": 2.0
+ },
+ {
+  "src": "leaves/leaf_187.webp",
+  "w": 236,
+  "h": 256,
+  "color": "#ba3e39",
+  "hue": 2.1
+ },
+ {
+  "src": "leaves/leaf_188.webp",
+  "w": 256,
+  "h": 205,
+  "color": "#c52e28",
+  "hue": 2.2
+ },
+ {
+  "src": "leaves/leaf_189.webp",
+  "w": 180,
+  "h": 256,
+  "color": "#852d2a",
+  "hue": 2.2
+ },
+ {
+  "src": "leaves/leaf_190.webp",
+  "w": 221,
+  "h": 256,
+  "color": "#823633",
+  "hue": 2.3
+ },
+ {
+  "src": "leaves/leaf_191.webp",
+  "w": 250,
+  "h": 256,
+  "color": "#972e2a",
+  "hue": 2.4
+ },
+ {
+  "src": "leaves/leaf_192.webp",
+  "w": 238,
+  "h": 256,
+  "color": "#af332d",
+  "hue": 2.5
+ },
+ {
+  "src": "leaves/leaf_193.webp",
+  "w": 256,
+  "h": 228,
+  "color": "#c23d37",
+  "hue": 2.7
+ },
+ {
+  "src": "leaves/leaf_194.webp",
+  "w": 256,
+  "h": 227,
+  "color": "#c23d37",
+  "hue": 2.8
+ },
+ {
+  "src": "leaves/leaf_195.webp",
+  "w": 230,
+  "h": 256,
+  "color": "#a63c37",
+  "hue": 2.9
+ },
+ {
+  "src": "leaves/leaf_196.webp",
+  "w": 256,
+  "h": 243,
+  "color": "#c93f37",
+  "hue": 3.2
+ },
+ {
+  "src": "leaves/leaf_197.webp",
+  "w": 256,
+  "h": 245,
+  "color": "#c93f37",
+  "hue": 3.3
+ },
+ {
+  "src": "leaves/leaf_198.webp",
+  "w": 210,
+  "h": 256,
+  "color": "#873530",
+  "hue": 3.3
+ },
+ {
+  "src": "leaves/leaf_199.webp",
+  "w": 256,
+  "h": 240,
+  "color": "#8a332d",
+  "hue": 3.5
+ },
+ {
+  "src": "leaves/leaf_200.webp",
+  "w": 251,
+  "h": 256,
+  "color": "#cc4138",
+  "hue": 3.6
+ },
+ {
+  "src": "leaves/leaf_201.webp",
+  "w": 254,
+  "h": 256,
+  "color": "#d13b31",
+  "hue": 3.6
+ },
+ {
+  "src": "leaves/leaf_202.webp",
+  "w": 207,
+  "h": 256,
+  "color": "#673935",
+  "hue": 3.7
+ },
+ {
+  "src": "leaves/leaf_203.webp",
+  "w": 256,
+  "h": 204,
+  "color": "#3f2a28",
+  "hue": 3.7
+ },
+ {
+  "src": "leaves/leaf_204.webp",
+  "w": 231,
+  "h": 256,
+  "color": "#d4483f",
+  "hue": 3.7
+ },
+ {
+  "src": "leaves/leaf_205.webp",
+  "w": 219,
+  "h": 256,
+  "color": "#923832",
+  "hue": 3.7
+ },
+ {
+  "src": "leaves/leaf_206.webp",
+  "w": 246,
+  "h": 256,
+  "color": "#c9362c",
+  "hue": 3.7
+ },
+ {
+  "src": "leaves/leaf_207.webp",
+  "w": 232,
+  "h": 256,
+  "color": "#d4493f",
+  "hue": 3.8
+ },
+ {
+  "src": "leaves/leaf_208.webp",
+  "w": 227,
+  "h": 256,
+  "color": "#c53b32",
+  "hue": 3.9
+ },
+ {
+  "src": "leaves/leaf_209.webp",
+  "w": 256,
+  "h": 248,
+  "color": "#bf362c",
+  "hue": 3.9
+ },
+ {
+  "src": "leaves/leaf_210.webp",
+  "w": 256,
+  "h": 226,
+  "color": "#b93c33",
+  "hue": 3.9
+ },
+ {
+  "src": "leaves/leaf_211.webp",
+  "w": 256,
+  "h": 227,
+  "color": "#a73f38",
+  "hue": 4.2
+ },
+ {
+  "src": "leaves/leaf_212.webp",
+  "w": 256,
+  "h": 222,
+  "color": "#c33e34",
+  "hue": 4.3
+ },
+ {
+  "src": "leaves/leaf_213.webp",
+  "w": 256,
+  "h": 255,
+  "color": "#ca3f34",
+  "hue": 4.3
+ },
+ {
+  "src": "leaves/leaf_214.webp",
+  "w": 230,
+  "h": 256,
+  "color": "#af433a",
+  "hue": 4.4
+ },
+ {
+  "src": "leaves/leaf_215.webp",
+  "w": 241,
+  "h": 256,
+  "color": "#af433b",
+  "hue": 4.4
+ },
+ {
+  "src": "leaves/leaf_216.webp",
+  "w": 188,
+  "h": 256,
+  "color": "#8c4039",
+  "hue": 4.6
+ },
+ {
+  "src": "leaves/leaf_217.webp",
+  "w": 256,
+  "h": 232,
+  "color": "#a23930",
+  "hue": 4.7
+ },
+ {
+  "src": "leaves/leaf_218.webp",
+  "w": 256,
+  "h": 215,
+  "color": "#c93528",
+  "hue": 4.9
+ },
+ {
+  "src": "leaves/leaf_219.webp",
+  "w": 256,
+  "h": 188,
+  "color": "#b8463c",
+  "hue": 5.0
+ },
+ {
+  "src": "leaves/leaf_220.webp",
+  "w": 230,
+  "h": 256,
+  "color": "#d5473a",
+  "hue": 5.1
+ },
+ {
+  "src": "leaves/leaf_221.webp",
+  "w": 207,
+  "h": 256,
+  "color": "#bd4237",
+  "hue": 5.1
+ },
+ {
+  "src": "leaves/leaf_222.webp",
+  "w": 256,
+  "h": 244,
+  "color": "#793b35",
+  "hue": 5.1
+ },
+ {
+  "src": "leaves/leaf_223.webp",
+  "w": 245,
+  "h": 256,
+  "color": "#b63428",
+  "hue": 5.2
+ },
+ {
+  "src": "leaves/leaf_224.webp",
+  "w": 246,
+  "h": 256,
+  "color": "#d64537",
+  "hue": 5.2
+ },
+ {
+  "src": "leaves/leaf_225.webp",
+  "w": 255,
+  "h": 256,
+  "color": "#b93a2e",
+  "hue": 5.3
+ },
+ {
+  "src": "leaves/leaf_226.webp",
+  "w": 229,
+  "h": 256,
+  "color": "#bc3b2d",
+  "hue": 5.5
+ },
+ {
+  "src": "leaves/leaf_227.webp",
+  "w": 223,
+  "h": 256,
+  "color": "#ce4031",
+  "hue": 5.6
+ },
+ {
+  "src": "leaves/leaf_228.webp",
+  "w": 245,
+  "h": 256,
+  "color": "#d44030",
+  "hue": 5.6
+ },
+ {
+  "src": "leaves/leaf_229.webp",
+  "w": 225,
+  "h": 256,
+  "color": "#9f3227",
+  "hue": 5.8
+ },
+ {
+  "src": "leaves/leaf_230.webp",
+  "w": 242,
+  "h": 256,
+  "color": "#a54136",
+  "hue": 6.0
+ },
+ {
+  "src": "leaves/leaf_231.webp",
+  "w": 219,
+  "h": 256,
+  "color": "#bf4537",
+  "hue": 6.1
+ },
+ {
+  "src": "leaves/leaf_232.webp",
+  "w": 256,
+  "h": 240,
+  "color": "#ca3e2d",
+  "hue": 6.6
+ },
+ {
+  "src": "leaves/leaf_233.webp",
+  "w": 250,
+  "h": 256,
+  "color": "#cd4a3a",
+  "hue": 6.7
+ },
+ {
+  "src": "leaves/leaf_234.webp",
+  "w": 209,
+  "h": 256,
+  "color": "#d64431",
+  "hue": 6.7
+ },
+ {
+  "src": "leaves/leaf_235.webp",
+  "w": 256,
+  "h": 247,
+  "color": "#633832",
+  "hue": 6.8
+ },
+ {
+  "src": "leaves/leaf_236.webp",
+  "w": 256,
+  "h": 228,
+  "color": "#cd4331",
+  "hue": 7.1
+ },
+ {
+  "src": "leaves/leaf_237.webp",
+  "w": 182,
+  "h": 256,
+  "color": "#ac3626",
+  "hue": 7.2
+ },
+ {
+  "src": "leaves/leaf_238.webp",
+  "w": 211,
+  "h": 256,
+  "color": "#b34738",
+  "hue": 7.2
+ },
+ {
+  "src": "leaves/leaf_239.webp",
+  "w": 197,
+  "h": 256,
+  "color": "#cc3e2b",
+  "hue": 7.2
+ },
+ {
+  "src": "leaves/leaf_240.webp",
+  "w": 256,
+  "h": 248,
+  "color": "#d0432f",
+  "hue": 7.4
+ },
+ {
+  "src": "leaves/leaf_241.webp",
+  "w": 256,
+  "h": 231,
+  "color": "#c63b27",
+  "hue": 7.5
+ },
+ {
+  "src": "leaves/leaf_242.webp",
+  "w": 256,
+  "h": 253,
+  "color": "#be4634",
+  "hue": 7.5
+ },
+ {
+  "src": "leaves/leaf_243.webp",
+  "w": 256,
+  "h": 254,
+  "color": "#c64a38",
+  "hue": 7.5
+ },
+ {
+  "src": "leaves/leaf_244.webp",
+  "w": 241,
+  "h": 256,
+  "color": "#cf432f",
+  "hue": 7.6
+ },
+ {
+  "src": "leaves/leaf_245.webp",
+  "w": 243,
+  "h": 256,
+  "color": "#cf4531",
+  "hue": 7.7
+ },
+ {
+  "src": "leaves/leaf_246.webp",
+  "w": 253,
+  "h": 256,
+  "color": "#953527",
+  "hue": 7.7
+ },
+ {
+  "src": "leaves/leaf_247.webp",
+  "w": 236,
+  "h": 256,
+  "color": "#ce422d",
+  "hue": 7.8
+ },
+ {
+  "src": "leaves/leaf_248.webp",
+  "w": 256,
+  "h": 247,
+  "color": "#593732",
+  "hue": 7.8
+ },
+ {
+  "src": "leaves/leaf_249.webp",
+  "w": 205,
+  "h": 256,
+  "color": "#cd452f",
+  "hue": 8.2
+ },
+ {
+  "src": "leaves/leaf_250.webp",
+  "w": 256,
+  "h": 240,
+  "color": "#ba5848",
+  "hue": 8.2
+ },
+ {
+  "src": "leaves/leaf_251.webp",
+  "w": 244,
+  "h": 256,
+  "color": "#ab3e2d",
+  "hue": 8.2
+ },
+ {
+  "src": "leaves/leaf_252.webp",
+  "w": 240,
+  "h": 256,
+  "color": "#da4e37",
+  "hue": 8.2
+ },
+ {
+  "src": "leaves/leaf_253.webp",
+  "w": 256,
+  "h": 220,
+  "color": "#d0422b",
+  "hue": 8.3
+ },
+ {
+  "src": "leaves/leaf_254.webp",
+  "w": 234,
+  "h": 256,
+  "color": "#bd4b39",
+  "hue": 8.5
+ },
+ {
+  "src": "leaves/leaf_255.webp",
+  "w": 197,
+  "h": 256,
+  "color": "#cc4129",
+  "hue": 8.9
+ },
+ {
+  "src": "leaves/leaf_256.webp",
+  "w": 256,
+  "h": 241,
+  "color": "#d34b33",
+  "hue": 9.0
+ },
+ {
+  "src": "leaves/leaf_257.webp",
+  "w": 207,
+  "h": 256,
+  "color": "#c44832",
+  "hue": 9.0
+ },
+ {
+  "src": "leaves/leaf_258.webp",
+  "w": 239,
+  "h": 256,
+  "color": "#b94833",
+  "hue": 9.4
+ },
+ {
+  "src": "leaves/leaf_259.webp",
+  "w": 256,
+  "h": 230,
+  "color": "#c14b34",
+  "hue": 9.8
+ },
+ {
+  "src": "leaves/leaf_260.webp",
+  "w": 246,
+  "h": 256,
+  "color": "#c34830",
+  "hue": 9.8
+ },
+ {
+  "src": "leaves/leaf_261.webp",
+  "w": 229,
+  "h": 256,
+  "color": "#e64d2f",
+  "hue": 9.9
+ },
+ {
+  "src": "leaves/leaf_262.webp",
+  "w": 218,
+  "h": 256,
+  "color": "#de492b",
+  "hue": 10.1
+ },
+ {
+  "src": "leaves/leaf_263.webp",
+  "w": 256,
+  "h": 239,
+  "color": "#cd5037",
+  "hue": 10.2
+ },
+ {
+  "src": "leaves/leaf_264.webp",
+  "w": 244,
+  "h": 256,
+  "color": "#d85235",
+  "hue": 10.7
+ },
+ {
+  "src": "leaves/leaf_265.webp",
+  "w": 256,
+  "h": 230,
+  "color": "#c14c33",
+  "hue": 10.9
+ },
+ {
+  "src": "leaves/leaf_266.webp",
+  "w": 209,
+  "h": 256,
+  "color": "#d14c2d",
+  "hue": 11.5
+ },
+ {
+  "src": "leaves/leaf_267.webp",
+  "w": 208,
+  "h": 256,
+  "color": "#97432f",
+  "hue": 11.5
+ },
+ {
+  "src": "leaves/leaf_268.webp",
+  "w": 241,
+  "h": 256,
+  "color": "#bf5036",
+  "hue": 11.6
+ },
+ {
+  "src": "leaves/leaf_269.webp",
+  "w": 249,
+  "h": 256,
+  "color": "#dd5230",
+  "hue": 11.7
+ },
+ {
+  "src": "leaves/leaf_270.webp",
+  "w": 256,
+  "h": 225,
+  "color": "#da5635",
+  "hue": 12.2
+ },
+ {
+  "src": "leaves/leaf_271.webp",
+  "w": 175,
+  "h": 256,
+  "color": "#c3492a",
+  "hue": 12.3
+ },
+ {
+  "src": "leaves/leaf_272.webp",
+  "w": 256,
+  "h": 249,
+  "color": "#d15939",
+  "hue": 12.6
+ },
+ {
+  "src": "leaves/leaf_273.webp",
+  "w": 222,
+  "h": 256,
+  "color": "#d95733",
+  "hue": 12.9
+ },
+ {
+  "src": "leaves/leaf_274.webp",
+  "w": 248,
+  "h": 256,
+  "color": "#da5a37",
+  "hue": 13.1
+ },
+ {
+  "src": "leaves/leaf_275.webp",
+  "w": 193,
+  "h": 256,
+  "color": "#e2623d",
+  "hue": 13.5
+ },
+ {
+  "src": "leaves/leaf_276.webp",
+  "w": 229,
+  "h": 256,
+  "color": "#d2603e",
+  "hue": 13.6
+ },
+ {
+  "src": "leaves/leaf_277.webp",
+  "w": 256,
+  "h": 220,
+  "color": "#df5c36",
+  "hue": 13.6
+ },
+ {
+  "src": "leaves/leaf_278.webp",
+  "w": 243,
+  "h": 256,
+  "color": "#dc5e39",
+  "hue": 13.6
+ },
+ {
+  "src": "leaves/leaf_279.webp",
+  "w": 256,
+  "h": 234,
+  "color": "#e45d33",
+  "hue": 14.3
+ },
+ {
+  "src": "leaves/leaf_280.webp",
+  "w": 256,
+  "h": 235,
+  "color": "#c05432",
+  "hue": 14.3
+ },
+ {
+  "src": "leaves/leaf_281.webp",
+  "w": 256,
+  "h": 250,
+  "color": "#cb532b",
+  "hue": 14.8
+ },
+ {
+  "src": "leaves/leaf_282.webp",
+  "w": 200,
+  "h": 256,
+  "color": "#c5552f",
+  "hue": 15.2
+ },
+ {
+  "src": "leaves/leaf_283.webp",
+  "w": 256,
+  "h": 245,
+  "color": "#d45528",
+  "hue": 15.7
+ },
+ {
+  "src": "leaves/leaf_284.webp",
+  "w": 193,
+  "h": 256,
+  "color": "#e06031",
+  "hue": 16.2
+ },
+ {
+  "src": "leaves/leaf_285.webp",
+  "w": 256,
+  "h": 215,
+  "color": "#c46441",
+  "hue": 16.4
+ },
+ {
+  "src": "leaves/leaf_286.webp",
+  "w": 249,
+  "h": 256,
+  "color": "#e46637",
+  "hue": 16.5
+ },
+ {
+  "src": "leaves/leaf_287.webp",
+  "w": 256,
+  "h": 216,
+  "color": "#c56540",
+  "hue": 16.5
+ },
+ {
+  "src": "leaves/leaf_288.webp",
+  "w": 239,
+  "h": 256,
+  "color": "#d46439",
+  "hue": 16.7
+ },
+ {
+  "src": "leaves/leaf_289.webp",
+  "w": 250,
+  "h": 256,
+  "color": "#ea6b3a",
+  "hue": 16.7
+ },
+ {
+  "src": "leaves/leaf_290.webp",
+  "w": 190,
+  "h": 256,
+  "color": "#d55e2f",
+  "hue": 16.9
+ },
+ {
+  "src": "leaves/leaf_291.webp",
+  "w": 205,
+  "h": 256,
+  "color": "#d4521f",
+  "hue": 17.1
+ },
+ {
+  "src": "leaves/leaf_292.webp",
+  "w": 185,
+  "h": 256,
+  "color": "#d76435",
+  "hue": 17.4
+ },
+ {
+  "src": "leaves/leaf_293.webp",
+  "w": 256,
+  "h": 231,
+  "color": "#d86232",
+  "hue": 17.4
+ },
+ {
+  "src": "leaves/leaf_294.webp",
+  "w": 227,
+  "h": 256,
+  "color": "#c16039",
+  "hue": 17.4
+ },
+ {
+  "src": "leaves/leaf_295.webp",
+  "w": 190,
+  "h": 256,
+  "color": "#e26a39",
+  "hue": 17.6
+ },
+ {
+  "src": "leaves/leaf_296.webp",
+  "w": 256,
+  "h": 253,
+  "color": "#eb642b",
+  "hue": 18.0
+ },
+ {
+  "src": "leaves/leaf_297.webp",
+  "w": 251,
+  "h": 256,
+  "color": "#e86e39",
+  "hue": 18.2
+ },
+ {
+  "src": "leaves/leaf_298.webp",
+  "w": 241,
+  "h": 256,
+  "color": "#cd683a",
+  "hue": 18.8
+ },
+ {
+  "src": "leaves/leaf_299.webp",
+  "w": 256,
+  "h": 233,
+  "color": "#db632b",
+  "hue": 18.9
+ },
+ {
+  "src": "leaves/leaf_300.webp",
+  "w": 256,
+  "h": 254,
+  "color": "#cd622f",
+  "hue": 19.6
+ },
+ {
+  "src": "leaves/leaf_301.webp",
+  "w": 213,
+  "h": 256,
+  "color": "#e76e32",
+  "hue": 19.9
+ },
+ {
+  "src": "leaves/leaf_302.webp",
+  "w": 224,
+  "h": 256,
+  "color": "#ee7332",
+  "hue": 20.7
+ },
+ {
+  "src": "leaves/leaf_303.webp",
+  "w": 256,
+  "h": 255,
+  "color": "#cf6e38",
+  "hue": 21.4
+ },
+ {
+  "src": "leaves/leaf_304.webp",
+  "w": 248,
+  "h": 256,
+  "color": "#d4692d",
+  "hue": 21.6
+ },
+ {
+  "src": "leaves/leaf_305.webp",
+  "w": 256,
+  "h": 219,
+  "color": "#dd753b",
+  "hue": 21.7
+ },
+ {
+  "src": "leaves/leaf_306.webp",
+  "w": 237,
+  "h": 256,
+  "color": "#eb7631",
+  "hue": 22.3
+ },
+ {
+  "src": "leaves/leaf_307.webp",
+  "w": 256,
+  "h": 239,
+  "color": "#eb7c3a",
+  "hue": 22.6
+ },
+ {
+  "src": "leaves/leaf_308.webp",
+  "w": 256,
+  "h": 246,
+  "color": "#e47733",
+  "hue": 22.8
+ },
+ {
+  "src": "leaves/leaf_309.webp",
+  "w": 245,
+  "h": 256,
+  "color": "#f87e33",
+  "hue": 23.0
+ },
+ {
+  "src": "leaves/leaf_310.webp",
+  "w": 216,
+  "h": 256,
+  "color": "#e97226",
+  "hue": 23.2
+ },
+ {
+  "src": "leaves/leaf_311.webp",
+  "w": 217,
+  "h": 256,
+  "color": "#d17236",
+  "hue": 23.3
+ },
+ {
+  "src": "leaves/leaf_312.webp",
+  "w": 242,
+  "h": 256,
+  "color": "#c26427",
+  "hue": 23.6
+ },
+ {
+  "src": "leaves/leaf_313.webp",
+  "w": 203,
+  "h": 256,
+  "color": "#e4772f",
+  "hue": 23.8
+ },
+ {
+  "src": "leaves/leaf_314.webp",
+  "w": 256,
+  "h": 238,
+  "color": "#f18239",
+  "hue": 23.9
+ },
+ {
+  "src": "leaves/leaf_315.webp",
+  "w": 256,
+  "h": 227,
+  "color": "#e27a31",
+  "hue": 24.8
+ },
+ {
+  "src": "leaves/leaf_316.webp",
+  "w": 256,
+  "h": 251,
+  "color": "#ec8234",
+  "hue": 25.3
+ },
+ {
+  "src": "leaves/leaf_317.webp",
+  "w": 256,
+  "h": 246,
+  "color": "#e27826",
+  "hue": 26.2
+ },
+ {
+  "src": "leaves/leaf_318.webp",
+  "w": 234,
+  "h": 256,
+  "color": "#e58134",
+  "hue": 26.2
+ },
+ {
+  "src": "leaves/leaf_319.webp",
+  "w": 240,
+  "h": 256,
+  "color": "#e88437",
+  "hue": 26.3
+ },
+ {
+  "src": "leaves/leaf_320.webp",
+  "w": 237,
+  "h": 256,
+  "color": "#e88437",
+  "hue": 26.3
+ },
+ {
+  "src": "leaves/leaf_321.webp",
+  "w": 256,
+  "h": 254,
+  "color": "#ea8a3d",
+  "hue": 26.6
+ },
+ {
+  "src": "leaves/leaf_322.webp",
+  "w": 251,
+  "h": 256,
+  "color": "#e7802a",
+  "hue": 27.1
+ },
+ {
+  "src": "leaves/leaf_323.webp",
+  "w": 256,
+  "h": 246,
+  "color": "#eb852d",
+  "hue": 27.7
+ },
+ {
+  "src": "leaves/leaf_324.webp",
+  "w": 239,
+  "h": 256,
+  "color": "#f3872a",
+  "hue": 27.7
+ },
+ {
+  "src": "leaves/leaf_325.webp",
+  "w": 227,
+  "h": 256,
+  "color": "#cb7c38",
+  "hue": 27.9
+ },
+ {
+  "src": "leaves/leaf_326.webp",
+  "w": 188,
+  "h": 256,
+  "color": "#cf711f",
+  "hue": 28.0
+ },
+ {
+  "src": "leaves/leaf_327.webp",
+  "w": 242,
+  "h": 256,
+  "color": "#d27f35",
+  "hue": 28.2
+ },
+ {
+  "src": "leaves/leaf_328.webp",
+  "w": 235,
+  "h": 256,
+  "color": "#df8322",
+  "hue": 30.6
+ },
+ {
+  "src": "leaves/leaf_329.webp",
+  "w": 256,
+  "h": 219,
+  "color": "#ce7921",
+  "hue": 30.6
+ },
+ {
+  "src": "leaves/leaf_330.webp",
+  "w": 256,
+  "h": 243,
+  "color": "#e99435",
+  "hue": 31.6
+ },
+ {
+  "src": "leaves/leaf_331.webp",
+  "w": 236,
+  "h": 256,
+  "color": "#db8f38",
+  "hue": 32.0
+ },
+ {
+  "src": "leaves/leaf_332.webp",
+  "w": 226,
+  "h": 256,
+  "color": "#e08f30",
+  "hue": 32.5
+ },
+ {
+  "src": "leaves/leaf_333.webp",
+  "w": 256,
+  "h": 249,
+  "color": "#cd862f",
+  "hue": 33.0
+ },
+ {
+  "src": "leaves/leaf_334.webp",
+  "w": 235,
+  "h": 256,
+  "color": "#d68824",
+  "hue": 33.7
+ },
+ {
+  "src": "leaves/leaf_335.webp",
+  "w": 227,
+  "h": 256,
+  "color": "#d38d2c",
+  "hue": 34.7
+ },
+ {
+  "src": "leaves/leaf_336.webp",
+  "w": 240,
+  "h": 256,
+  "color": "#f0a431",
+  "hue": 36.0
+ },
+ {
+  "src": "leaves/leaf_337.webp",
+  "w": 256,
+  "h": 217,
+  "color": "#e6ac3b",
+  "hue": 39.7
+ },
+ {
+  "src": "leaves/leaf_338.webp",
+  "w": 187,
+  "h": 256,
+  "color": "#e1aa3d",
+  "hue": 40.1
+ }
+]

@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Falling Leaves</title>
+<meta name="description" content="A calm falling-leaf screensaver made from hand-scanned autumn leaves.">
+<style>
+  :root {
+    --bg-inner: #1b1320;
+    --bg-outer: #07060a;
+    --text: rgba(255, 244, 230, 0.78);
+    --text-dim: rgba(255, 244, 230, 0.45);
+    --key-bg: rgba(255, 244, 230, 0.1);
+  }
+  :root[data-bg="light"] {
+    --bg-inner: #faf5ec;
+    --bg-outer: #e9dfcf;
+    --text: rgba(40, 28, 20, 0.8);
+    --text-dim: rgba(40, 28, 20, 0.5);
+    --key-bg: rgba(40, 28, 20, 0.08);
+  }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body {
+    background: radial-gradient(ellipse at 50% 40%, var(--bg-inner), var(--bg-outer) 75%);
+    font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text);
+  }
+  :root[data-bg="transparent"] body { background: transparent; }
+  canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  body.idle { cursor: none; }
+
+  .hint {
+    position: fixed; left: 16px; right: 16px; bottom: 20px;
+    display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: center;
+    transition: opacity 1.2s ease;
+    pointer-events: none;
+  }
+  .hint.hidden { opacity: 0; }
+  .hint span { color: var(--text-dim); }
+  kbd {
+    font: inherit; font-size: 12px; color: var(--text);
+    background: var(--key-bg); border-radius: 4px; padding: 1px 6px; margin-right: 4px;
+  }
+  .loading {
+    position: fixed; inset: 0; display: grid; place-items: center;
+    color: var(--text-dim); letter-spacing: 0.08em; transition: opacity 0.8s;
+    pointer-events: none;
+  }
+  .loading.done { opacity: 0; }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="loading" id="loading">gathering leaves…</div>
+<div class="hint" id="hint">
+  <span><kbd>F</kbd>fullscreen</span>
+  <span><kbd>Space</kbd>pause</span>
+  <span><kbd>↑</kbd><kbd>↓</kbd>more / fewer leaves</span>
+  <span><kbd>H</kbd>hide this</span>
+</div>
+
+<script>
+/*
+ * Falling Leaves: every leaf here is a real scanned leaf (see ../README.md).
+ *
+ * URL options, e.g. index.html?count=30&speed=0.7&bg=light
+ *   count  number of leaves on screen (default: scales with window size)
+ *   speed  fall speed multiplier (default 1)
+ *   size   leaf size multiplier (default 1)
+ *   bg     dark | light | transparent  (transparent is for embedding)
+ *   hint   0 to never show the keyboard hint
+ */
+(() => {
+  const params = new URLSearchParams(location.search);
+  const num = (key, fallback, min, max) => {
+    const v = parseFloat(params.get(key));
+    return Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : fallback;
+  };
+  const bg = params.get("bg");
+  if (bg === "light" || bg === "transparent") document.documentElement.dataset.bg = bg;
+
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const speed = num("speed", 1, 0.1, 4) * (reducedMotion ? 0.35 : 1);
+  const sizeScale = num("size", 1, 0.3, 3);
+  const countParam = params.has("count") ? num("count", 0, 1, 300) : null;
+
+  const canvas = document.getElementById("sky");
+  const ctx = canvas.getContext("2d");
+  let width = 0, height = 0, dpr = 1, baseSize = 100;
+
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const pick = arr => arr[(Math.random() * arr.length) | 0];
+
+  // ---------------------------------------------------------------- sprites
+  // All sprites load in the background; leaves draw from whatever has
+  // arrived so far, so the scene starts quickly and gains variety over time.
+  const sprites = [];
+
+  async function loadSprites() {
+    const manifest = await (await fetch("leaves.json")).json();
+    for (let i = manifest.length - 1; i > 0; i--) {  // shuffle
+      const j = (Math.random() * (i + 1)) | 0;
+      [manifest[i], manifest[j]] = [manifest[j], manifest[i]];
+    }
+    let next = 0;
+    const worker = async () => {
+      while (next < manifest.length) {
+        const entry = manifest[next++];
+        const img = new Image();
+        img.src = entry.src;
+        try { await img.decode(); sprites.push(img); } catch { /* skip broken sprite */ }
+      }
+    };
+    await Promise.all(Array.from({ length: 6 }, worker));
+  }
+
+  // ----------------------------------------------------------------- leaves
+  class Leaf {
+    constructor(scatter) { this.reset(scatter); }
+
+    reset(scatter) {
+      this.img = pick(sprites);
+      this.depth = rand(0.35, 1);                       // 1 = closest to the viewer
+      const s = baseSize * this.depth * rand(0.8, 1.2);
+      const aspect = this.img.naturalWidth / this.img.naturalHeight;
+      this.w = aspect >= 1 ? s : s * aspect;
+      this.h = aspect >= 1 ? s / aspect : s;
+      this.x = rand(-0.1, 1.1) * width;
+      this.y = scatter ? rand(-0.1, 1) * height : -rand(0.6, 2) * s;
+      this.fall = rand(28, 48) * (0.5 + this.depth);    // px/s; near leaves fall faster
+      this.swayAmp = rand(18, 55) * this.depth;
+      this.swayFreq = rand(0.25, 0.6);
+      this.swayPhase = rand(0, Math.PI * 2);
+      this.angle = rand(0, Math.PI * 2);
+      this.spin = rand(0.15, 0.7) * (Math.random() < 0.5 ? -1 : 1);
+      this.flipFreq = reducedMotion ? 0 : rand(0.3, 1.1);
+      this.flipPhase = rand(0, Math.PI * 2);
+    }
+
+    update(dt, t, wind) {
+      const flip = Math.cos(this.flipPhase + t * this.flipFreq);
+      // A leaf seen edge-on catches less air and drops a little faster.
+      const drag = 0.75 + 0.45 * (1 - Math.abs(flip));
+      this.y += this.fall * drag * speed * dt;
+      this.x += (wind * this.depth +
+                 Math.cos(this.swayPhase + t * this.swayFreq) * this.swayAmp * this.swayFreq) * speed * dt;
+      this.angle += this.spin * speed * dt;
+      this.flip = flip;
+
+      const margin = Math.max(this.w, this.h);
+      if (this.y > height + margin) this.reset(false);
+      else if (this.x < -2 * margin) this.x += width + 3 * margin;
+      else if (this.x > width + 2 * margin) this.x -= width + 3 * margin;
+    }
+
+    draw() {
+      // Flatten the leaf horizontally as it tumbles to fake a 3D flip.
+      const squash = Math.max(0.08, Math.abs(this.flip));
+      ctx.globalAlpha = 0.35 + 0.65 * this.depth;
+      ctx.setTransform(dpr, 0, 0, dpr, this.x * dpr, this.y * dpr);
+      ctx.rotate(this.angle);
+      ctx.scale(squash, 1);
+      ctx.drawImage(this.img, -this.w / 2, -this.h / 2, this.w, this.h);
+    }
+  }
+
+  let leaves = [];
+  let targetCount = 0;
+
+  function autoCount() {
+    return Math.round(Math.min(90, Math.max(12, (width * height) / 26000)));
+  }
+
+  function syncLeafCount(scatter) {
+    while (leaves.length < targetCount) leaves.push(new Leaf(scatter));
+    if (leaves.length > targetCount) leaves.length = targetCount;
+    leaves.sort((a, b) => a.depth - b.depth);  // far leaves are drawn first
+  }
+
+  // ------------------------------------------------------------------- wind
+  // A few slow, incommensurate sine waves: a steady breeze with gusts.
+  function windAt(t) {
+    return (Math.sin(t * 0.07) * 18 + Math.sin(t * 0.19 + 1.3) * 10 +
+            Math.max(0, Math.sin(t * 0.043 + 4)) ** 6 * 45) * (reducedMotion ? 0.3 : 1);
+  }
+
+  // ------------------------------------------------------------------- loop
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    baseSize = Math.min(150, Math.max(55, Math.min(width, height) * 0.12)) * sizeScale;
+    if (countParam === null && sprites.length) {
+      targetCount = autoCount();
+      syncLeafCount(true);
+    }
+  }
+
+  let paused = false;
+  let simTime = 0;
+  let last = performance.now();
+
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000);  // clamp after tab switches
+    last = now;
+    if (!paused) {
+      simTime += dt;
+      const wind = windAt(simTime);
+      for (const leaf of leaves) leaf.update(dt, simTime, wind);
+    }
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const leaf of leaves) leaf.draw();
+    requestAnimationFrame(frame);
+  }
+
+  // --------------------------------------------------------------- controls
+  const hint = document.getElementById("hint");
+  let hintTimer, idleTimer;
+  const showHint = hintFor => {
+    if (params.get("hint") === "0") return hint.classList.add("hidden");
+    hint.classList.remove("hidden");
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(() => hint.classList.add("hidden"), hintFor);
+  };
+
+  function toggleFullscreen() {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen?.().catch(() => {});
+  }
+
+  addEventListener("keydown", e => {
+    if (e.key === "f" || e.key === "F") toggleFullscreen();
+    else if (e.key === " ") { paused = !paused; e.preventDefault(); }
+    else if (e.key === "h" || e.key === "H") hint.classList.add("hidden");
+    else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+      targetCount = Math.max(1, Math.min(300, targetCount + (e.key === "ArrowUp" ? 5 : -5)));
+      syncLeafCount(false);
+      e.preventDefault();
+    }
+  });
+  addEventListener("dblclick", toggleFullscreen);
+  addEventListener("pointermove", () => {
+    document.body.classList.remove("idle");
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => document.body.classList.add("idle"), 2500);
+  });
+  addEventListener("resize", resize);
+
+  // ------------------------------------------------------------------ start
+  resize();
+  const allLoaded = loadSprites();
+  const waitForFirstSprites = new Promise(resolve => {
+    const check = () => (sprites.length >= 12 ? resolve() : setTimeout(check, 50));
+    check();
+  });
+  Promise.race([waitForFirstSprites, allLoaded]).then(() => {
+    if (!sprites.length) {
+      document.getElementById("loading").textContent = "could not load leaves";
+      return;
+    }
+    targetCount = countParam ?? autoCount();
+    syncLeafCount(true);
+    document.getElementById("loading").classList.add("done");
+    showHint(5000);
+    requestAnimationFrame(t => { last = t; frame(t); });
+  });
+})();
+</script>
+</body>
+</html>

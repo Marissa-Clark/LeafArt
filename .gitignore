@@ -1,0 +1,16 @@
+# Raw scans and full-resolution crops (~30 GB), kept locally only
+data/*
+!data/leaf_rotations.csv
+
+# Old exploratory notebooks and intermediate outputs
+archive/
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+
+# Local tooling
+.claude/
+contact_sheet.jpg
