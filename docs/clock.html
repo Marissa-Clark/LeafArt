@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leaf Clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #07060a; }
+  canvas { display: block; width: 100vw; height: 100vh; cursor: none; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+/*
+  Leaf Clock: falling leaves around a clock. Leaves pile up through the hour
+  and blow away at the top of each hour. Built for an Echo Show 5 (960x480).
+
+  URL options:
+    ?bg=light     cream background instead of dark
+    ?h24=1        24-hour time
+    ?pile=0.45    how high the pile gets by :59, as a fraction of the screen
+    ?count=1      leaf density multiplier
+    ?test=120     pretend an hour lasts 120 seconds (to watch the pile and reset)
+*/
+const params = new URLSearchParams(location.search);
+const num = (k, lo, hi, d) => { const v = parseFloat(params.get(k)); return Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : d; };
+const LIGHT = params.get('bg') === 'light';
+const H24 = params.get('h24') === '1';
+const PILE_MAX = num('pile', 0.1, 0.8, 0.45);
+const DENSITY = num('count', 0.2, 3, 1);
+const TEST_PERIOD = num('test', 10, 3600, 0);   // 0 = real hours
+const MAX_SPRITES = 90;                          // keeps decoded-image memory modest on small devices
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const pile = document.createElement('canvas');   // landed leaves are stamped here once
+const pctx = pile.getContext('2d');
+const bg = document.createElement('canvas');     // static background gradient
+const gustC = document.createElement('canvas');  // pile leaves blowing away at the top of the hour
+const gctx = gustC.getContext('2d');
+const bctx = bg.getContext('2d');
+
+let W = 0, H = 0, DPR = 1, COLW = 4, heights = new Float32Array(0);
+
+const theme = LIGHT
+  ? { inner: '#f3ece1', outer: '#e2d6c4', text: '#2a1c14', sub: 'rgba(42,28,20,.6)', glow: 'rgba(243,236,225,.85)', backAlpha: .5 }
+  : { inner: '#1b1320', outer: '#07060a', text: 'rgba(255,244,230,.92)', sub: 'rgba(255,244,230,.55)', glow: 'rgba(7,6,10,.75)', backAlpha: .45 };
+
+// ── sizing ─────────────────────────────────────────────────────────────
+function resize() {
+  DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+  W = window.innerWidth; H = window.innerHeight;
+  for (const c of [canvas, pile, bg, gustC]) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }
+  for (const c of [ctx, pctx, bctx, gctx]) c.setTransform(DPR, 0, 0, DPR, 0, 0);
+  const g = bctx.createRadialGradient(W / 2, H * 0.4, 0, W / 2, H * 0.4, Math.max(W, H) * 0.75);
+  g.addColorStop(0, theme.inner); g.addColorStop(1, theme.outer);
+  bctx.fillStyle = g; bctx.fillRect(0, 0, W, H);
+  heights = new Float32Array(Math.ceil(W / COLW) + 1);
+  pctx.clearRect(0, 0, W, H);
+  if (typeof pileLeaves !== 'undefined') pileLeaves.length = 0;
+  prefilled = false;
+  if (typeof pileDirty !== 'undefined') pileDirty = true;
+}
+
+// ── sprites ────────────────────────────────────────────────────────────
+const sprites = [];
+async function loadSprites() {
+  const manifest = await (await fetch('leaves.json')).json();
+  for (let i = manifest.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [manifest[i], manifest[j]] = [manifest[j], manifest[i]]; }
+  const list = manifest.slice(0, MAX_SPRITES);
+  const enough = Math.min(20, list.length);       // start once there's some variety; the rest keep loading
+  let next = 0;
+  const load = src => new Promise(res => {
+    const img = new Image();
+    img.onload = () => res(img); img.onerror = () => res(null);
+    img.src = src;
+  });
+  const worker = async () => {
+    while (next < list.length) {
+      const img = await load(list[next++].src);
+      if (img) { sprites.push(img); if (sprites.length === enough) onReady(); }
+    }
+  };
+  await Promise.all(Array.from({ length: 4 }, worker));
+}
+let ready = false;
+function onReady() { ready = true; populate(); keepAwake(); }
+const pick = () => sprites[(Math.random() * sprites.length) | 0];
+const rand = (a, b) => a + Math.random() * (b - a);
+
+// ── time ───────────────────────────────────────────────────────────────
+function hourFraction(now) {
+  if (TEST_PERIOD) return ((now / 1000) % TEST_PERIOD) / TEST_PERIOD;
+  const d = new Date(now);
+  return (d.getMinutes() * 60 + d.getSeconds() + d.getMilliseconds() / 1000) / 3600;
+}
+const pileTarget = f => H * PILE_MAX * f;
+
+// ── pile ───────────────────────────────────────────────────────────────
+const col = x => Math.max(0, Math.min(heights.length - 1, Math.round(x / COLW)));
+const surfaceAt = x => H - heights[col(x)];
+function avgHeight() { let s = 0; for (const h of heights) s += h; return s / heights.length; }
+
+// Freeze a leaf into the pile. With a pose, it's drawn exactly as it was last seen falling.
+function stamp(img, x, size, pose) {
+  const aspect = img.naturalWidth / img.naturalHeight;
+  const w = pose ? pose.w : (aspect >= 1 ? size : size * aspect);
+  const h = pose ? pose.h : (aspect >= 1 ? size / aspect : size);
+  const y = pose ? pose.y : surfaceAt(x) + h * 0.2;
+  const angle = pose ? pose.angle : rand(0, 6.28), squash = pose ? pose.squash : rand(0.55, 1);
+  pctx.save();
+  pctx.translate(x, y);
+  pctx.rotate(angle);
+  pctx.scale(squash, 1);
+  pctx.shadowColor = LIGHT ? 'rgba(80,50,25,.25)' : 'rgba(0,0,0,.45)';
+  pctx.shadowBlur = 6; pctx.shadowOffsetY = 2;
+  pctx.drawImage(img, -w / 2, -h / 2, w, h);
+  pctx.restore();
+  pileLeaves.push({ img, x, y, w, h, angle, squash });   // remembered so each one can blow away later
+  pileDirty = true;
+  // raise the surface under the leaf with a soft bump, then smooth a little
+  const half = Math.max(w, h) * 0.55, c0 = col(x - half), c1 = col(x + half), lift = Math.max(w, h) * 0.2;
+  for (let c = c0; c <= c1; c++) {
+    const t = (c * COLW - x) / half;
+    heights[c] += lift * Math.max(0, Math.cos(t * Math.PI / 2));
+  }
+  for (let c = Math.max(1, c0 - 2); c < Math.min(heights.length - 1, c1 + 3); c++)
+    heights[c] = (heights[c - 1] + heights[c] * 2 + heights[c + 1]) / 4;
+}
+
+const pileLeaves = [];
+let prefilled = false;
+function prefill(f) {                      // page opened mid-hour: build the pile instantly
+  const target = pileTarget(f);
+  let guard = 0;
+  while (avgHeight() < target && guard++ < 4000) stamp(pick(), rand(-20, W + 20), frontSize());
+  prefilled = true;
+}
+
+// ── falling leaves ─────────────────────────────────────────────────────
+// Same motion model as the screensaver: one depth value (0.35 far … 1 near)
+// sets size, opacity, fall speed, sway, and how much the wind pushes a leaf.
+const CLOCK_DEPTH = 0.62;   // leaves farther than this pass behind the clock
+const PILE_DEPTH = 0.86;    // leaves farther than this slip behind the pile; nearer ones can land on it
+const baseSize = () => H * 0.16;
+const frontSize = () => baseSize() * rand(0.85, 1.15);
+const falling = [];
+function makeLeaf(scatter, near) {
+  const img = pick(), depth = near ? rand(0.9, 1) : rand(0.35, 1), s = baseSize() * depth * rand(0.8, 1.2);
+  const aspect = img.naturalWidth / img.naturalHeight;
+  return {
+    img, depth, gust: false,
+    w: aspect >= 1 ? s : s * aspect, h: aspect >= 1 ? s / aspect : s,
+    x: rand(-0.1, 1.1) * W, y: scatter ? rand(-0.1, 0.9) * H : -rand(0.6, 2) * s,
+    fall: H * rand(0.06, 0.1) * (0.5 + depth),
+    swayAmp: rand(18, 55) * depth * H / 480, swayFreq: rand(0.25, 0.6), swayPhase: rand(0, 6.28),
+    angle: rand(0, 6.28), spin: rand(0.15, 0.7) * (Math.random() < 0.5 ? -1 : 1),
+    flipFreq: rand(0.3, 1.1), flipPhase: rand(0, 6.28), flip: 1,
+    vx: 0, vy: 0, alpha: 1, settle: 0, settleY: 0, extra: !!near,
+  };
+}
+function populate() {
+  const n = Math.round(Math.min(40, Math.max(12, W * H / 21000)) * DENSITY);
+  for (let i = 0; i < n; i++) falling.push(makeLeaf(true));
+  falling.sort((a, b) => a.depth - b.depth);
+}
+function replace(i) { falling[i] = makeLeaf(false); falling.sort((a, b) => a.depth - b.depth); }
+
+// A few slow, incommensurate sine waves: a steady breeze with occasional gusts.
+const windAt = t => (Math.sin(t * 0.07) * 18 + Math.sin(t * 0.19 + 1.3) * 10 +
+                     Math.max(0, Math.sin(t * 0.043 + 4)) ** 6 * 45) * H / 480;
+
+let simT = 0;
+function step(dt, now) {
+  simT += dt;
+  const wind = windAt(simT);
+  const deficit = pileTarget(hourFraction(now)) - avgHeight();
+
+  for (let i = falling.length - 1; i >= 0; i--) {
+    const L = falling[i];
+    if (L.settle > 0) {                               // landing: slow down, flatten out, then freeze into the pile
+      L.settle += dt / 0.55;
+      const k = Math.min(1, L.settle);
+      L.y += (L.settleY - L.y) * Math.min(1, dt * 7);
+      L.flip += ((L.flip < 0 ? -0.85 : 0.85) - L.flip) * Math.min(1, dt * 6);
+      L.angle += L.spin * dt * (1 - k);
+      if (k >= 1) {
+        stamp(L.img, L.x, 0, { y: L.y, w: L.w, h: L.h, angle: L.angle, squash: Math.max(0.08, Math.abs(L.flip)) });
+        if (L.extra) falling.splice(i, 1); else replace(i);
+      }
+      continue;
+    }
+    L.flip = Math.cos(L.flipPhase + simT * L.flipFreq);
+    const drag = 0.75 + 0.45 * (1 - Math.abs(L.flip));   // edge-on leaves catch less air
+    L.y += L.fall * drag * dt;
+    L.x += ((wind + gustWind * W * 0.55) * L.depth + Math.cos(L.swayPhase + simT * L.swayFreq) * L.swayAmp * L.swayFreq) * dt;
+    L.y -= gustWind * H * 0.06 * L.depth * dt;            // the gust holds leaves up a little
+    L.angle += L.spin * dt;
+
+    const m = Math.max(L.w, L.h);
+    if (L.y > H + m) { if (L.extra) falling.splice(i, 1); else replace(i); continue; }
+    if (L.x < -2 * m) L.x += W + 3 * m; else if (L.x > W + 2 * m) L.x -= W + 3 * m;
+    if (resetting) continue;
+    const surf = surfaceAt(L.x);
+    // Leaves behind the pile just keep falling behind it; near leaves settle onto it while it's behind schedule.
+    if (L.depth >= PILE_DEPTH && L.y + L.h * 0.2 > surf && deficit > 0) {
+      L.settle = 0.001; L.settleY = surf + L.h * 0.12;
+    }
+  }
+  // If landings can't keep up (slow device, or ?test mode), send down extra near leaves (never pop one in).
+  extraT -= dt;
+  const extras = falling.reduce((n, l) => n + (l.extra ? 1 : 0), 0);
+  if (!resetting && deficit > H * 0.02 && extraT <= 0 && extras < 12) {
+    falling.push(makeLeaf(false, true)); falling.sort((a, b) => a.depth - b.depth); extraT = 0.35;
+  }
+}
+let extraT = 0;
+
+// ── top-of-hour reset: a gust sweeps every leaf off the pile ───────────
+// The gust front moves left to right; leaves on top of the pile go first.
+let resetting = false, resetT = 0, lastF = null, gustWind = 0, gusters = [], gustTop = 0;
+function startReset() {
+  resetting = true; resetT = 0;
+  gustTop = 0; for (const h of heights) gustTop = Math.max(gustTop, h);
+  const pileTop = H - gustTop;
+  gusters = pileLeaves.map(p => ({
+    ...p,
+    delay: 0.2 + ((p.x + 60) / (W + 120)) * 1.8 + ((p.y - pileTop) / Math.max(1, gustTop)) * 0.9 + rand(0, 0.35),
+    lift: rand(0.55, 1.1), vx: 0, vy: 0, kicked: false,
+    spin: rand(1.5, 5) * (Math.random() < 0.5 ? -1 : 1), flipPhase: rand(0, 6.28), flipFreq: rand(1.5, 3.5), squash0: p.squash,
+  }));
+  pileLeaves.length = 0;
+  pctx.clearRect(0, 0, W, H); heights.fill(0);
+  pileDirty = true; shadedAt = -1e9;                  // drop the static pile right away; the gusters take its place
+}
+function stepReset(dt) {
+  resetT += dt;
+  gustWind = Math.min(1, resetT / 0.8) * (resetT < 3.5 ? 1 : Math.max(0, 1 - (resetT - 3.5) / 2.5));
+  for (let i = gusters.length - 1; i >= 0; i--) {
+    const g = gusters[i];
+    if (resetT < g.delay) continue;
+    const a = resetT - g.delay;
+    if (!g.kicked) { g.kicked = true; g.vy = -H * rand(0.35, 0.8) * g.lift; }
+    g.vx += (W * 0.85 * g.lift - g.vx) * Math.min(1, dt * 2.2);   // catch up to the wind
+    g.vy += H * 0.32 * dt;                                         // gravity pulls back down
+    g.x += g.vx * dt; g.y += g.vy * dt;
+    g.angle += g.spin * dt;
+    const tumble = Math.abs(Math.cos(g.flipPhase + a * g.flipFreq));
+    g.squash = g.squash0 + (tumble - g.squash0) * Math.min(1, a * 2);
+    if (g.x > W + 160 || g.y > H + 160) gusters.splice(i, 1);     // gone off the edge, never faded out
+  }
+  if ((!gusters.length && resetT > 2) || resetT > 9) { resetting = false; gusters = []; gustWind = 0; }
+}
+function drawGust() {
+  if (!gusters.length) return;
+  gctx.clearRect(0, 0, W, H);
+  for (const g of gusters) {
+    gctx.save();
+    gctx.translate(g.x, g.y); gctx.rotate(g.angle); gctx.scale(Math.max(0.08, g.squash), 1);
+    gctx.drawImage(g.img, -g.w / 2, -g.h / 2, g.w, g.h);
+    gctx.restore();
+  }
+  // same shading as the pile, fixed where the pile was: leaves brighten as they rise out of it
+  if (gustTop > 4) {
+    const grd = gctx.createLinearGradient(0, H - gustTop, 0, H);
+    grd.addColorStop(0, 'rgba(0,0,0,0)');
+    grd.addColorStop(0.35, LIGHT ? 'rgba(70,40,20,.08)' : 'rgba(0,0,0,.12)');
+    grd.addColorStop(1, LIGHT ? 'rgba(70,40,20,.38)' : 'rgba(0,0,0,.6)');
+    gctx.globalCompositeOperation = 'source-atop';
+    gctx.fillStyle = grd; gctx.fillRect(0, H - gustTop, W, gustTop);
+    gctx.globalCompositeOperation = 'source-over';
+  }
+  ctx.drawImage(gustC, 0, 0, W, H);
+}
+
+// ── drawing ────────────────────────────────────────────────────────────
+function drawLeaf(L) {
+  ctx.save();
+  ctx.globalAlpha = Math.max(0, Math.min(1, (0.35 + 0.65 * L.depth) * L.alpha));
+  ctx.translate(L.x, L.y);
+  ctx.rotate(L.angle);
+  ctx.scale(Math.max(0.08, Math.abs(L.flip)), 1);                  // turning edge-on fakes a 3D flip
+  ctx.drawImage(L.img, -L.w / 2, -L.h / 2, L.w, L.h);
+  ctx.restore();
+}
+
+// A shaded copy of the pile: darker toward the bottom so it reads as a heap with depth.
+// Rebuilt only when the pile changes (at most twice a second), not every frame.
+const shaded = document.createElement('canvas'), sctx = shaded.getContext('2d');
+let pileDirty = true, shadedAt = 0;
+function refreshShaded(t) {
+  if (!pileDirty || t - shadedAt < 500) return;
+  pileDirty = false; shadedAt = t;
+  if (shaded.width !== pile.width || shaded.height !== pile.height) { shaded.width = pile.width; shaded.height = pile.height; }
+  sctx.setTransform(1, 0, 0, 1, 0, 0);
+  sctx.clearRect(0, 0, shaded.width, shaded.height);
+  sctx.globalCompositeOperation = 'source-over';
+  sctx.drawImage(pile, 0, 0);
+  let top = 0; for (const h of heights) top = Math.max(top, h);
+  if (top < 4) return;
+  const g = sctx.createLinearGradient(0, (H - top) * DPR, 0, H * DPR);
+  g.addColorStop(0, 'rgba(0,0,0,0)');
+  g.addColorStop(0.35, LIGHT ? 'rgba(70,40,20,.08)' : 'rgba(0,0,0,.12)');
+  g.addColorStop(1, LIGHT ? 'rgba(70,40,20,.38)' : 'rgba(0,0,0,.6)');
+  sctx.globalCompositeOperation = 'source-atop';              // only darkens pixels that are leaves
+  sctx.fillStyle = g;
+  sctx.fillRect(0, 0, shaded.width, shaded.height);
+  sctx.globalCompositeOperation = 'source-over';
+}
+function drawPile() { ctx.drawImage(shaded, 0, 0, W, H); }
+
+const fontFamily = 'Inter, "Helvetica Neue", Arial, sans-serif';
+function drawClock(now) {
+  const d = new Date(now);
+  let hh = d.getHours();
+  if (!H24) hh = hh % 12 || 12;
+  const time = `${H24 ? String(hh).padStart(2, '0') : hh}:${String(d.getMinutes()).padStart(2, '0')}`;
+  const date = d.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+  // drift a few pixels each minute so nothing sits in exactly one spot all day
+  const m = d.getHours() * 60 + d.getMinutes();
+  const dx = Math.sin(m * 0.7) * W * 0.012, dy = Math.cos(m * 0.5) * H * 0.012;
+  const cx = W / 2 + dx, cy = H * 0.4 + dy;
+  ctx.save();
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.shadowColor = theme.glow; ctx.shadowBlur = H * 0.05;
+  ctx.fillStyle = theme.text;
+  ctx.font = `300 ${Math.round(H * 0.3)}px ${fontFamily}`;
+  ctx.fillText(time, cx, cy);
+  ctx.fillStyle = theme.sub;
+  ctx.font = `400 ${Math.round(H * 0.052)}px ${fontFamily}`;
+  ctx.fillText(date, cx, cy + H * 0.215);
+  ctx.restore();
+}
+
+let last = performance.now();
+function frame(t) {
+  const dt = Math.min(0.1, (t - last) / 1000); last = t;
+  const now = Date.now();
+  if (ready) {
+    const f = hourFraction(now);
+    if (!prefilled) prefill(f);
+    if (lastF !== null && f < lastF - 0.5 && !resetting) startReset();   // the hour rolled over
+    lastF = f;
+    if (resetting) stepReset(dt);
+    step(dt, now);
+  }
+  ctx.drawImage(bg, 0, 0, W, H);
+  let i = 0;                                   // falling is sorted far → near
+  for (; i < falling.length && falling[i].depth < CLOCK_DEPTH && !falling[i].gust; i++) drawLeaf(falling[i]);
+  drawClock(now);
+  for (; i < falling.length && falling[i].depth < PILE_DEPTH && !falling[i].gust; i++) drawLeaf(falling[i]);
+  refreshShaded(t);
+  drawPile();
+  drawGust();
+  for (; i < falling.length; i++) drawLeaf(falling[i]);
+  requestAnimationFrame(frame);
+}
+
+// ── keep the screen on, tap for fullscreen ─────────────────────────────
+let wakeLock = null;
+async function keepAwake() { try { wakeLock = await navigator.wakeLock?.request('screen'); } catch { /* not supported */ } }
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') keepAwake(); });
+canvas.addEventListener('click', () => {
+  keepAwake();
+  const el = document.documentElement;
+  if (!document.fullscreenElement) (el.requestFullscreen || el.webkitRequestFullscreen)?.call(el);
+});
+
+window.addEventListener('resize', resize);
+resize();
+(Promise.all([document.fonts?.load(`300 40px ${fontFamily}`), document.fonts?.load(`400 40px ${fontFamily}`)]) || Promise.resolve()).catch(() => {});
+loadSprites();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
